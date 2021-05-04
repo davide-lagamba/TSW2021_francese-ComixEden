@@ -1,16 +1,10 @@
 footer{
 	font-family: Roboto,Trebuchet MS,Helvetica,Arial,sans-serif;
 	text-transform: uppercase;
-	 position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
   text-align: center;
    background-color:#FE312C;
    color: #FEFEFE;
    font-size: large;
-  display: block;
-  padding: 5% 5%;
   text-align: center;
-  
+ padding: 40px 0px 40px 0px;
 }

@@ -1,4 +1,5 @@
 package model;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class CategoriaDS  {
+public class CategoriaDS {
 
 	private static DataSource ds;
 
@@ -29,14 +30,12 @@ public class CategoriaDS  {
 
 	private static final String TABLE_NAME = "categoria";
 
-	
 	public synchronized void doSave(Categoria categoria) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO " + CategoriaDS.TABLE_NAME
-				+ " (NOME) VALUES (?)";
+		String insertSQL = "INSERT INTO " + CategoriaDS.TABLE_NAME + " (NOME) VALUES (?)";
 
 		try {
 			connection = ds.getConnection();
@@ -56,14 +55,13 @@ public class CategoriaDS  {
 		}
 	}
 
-	
 	public synchronized Categoria doRetrieveByKey(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		Categoria bean = new Categoria();
 
-		String selectSQL = "SELECT * FROM " + CategoriaDS.TABLE_NAME + " WHERE ID = ?";
+		String selectSQL = "SELECT * FROM " + CategoriaDS.TABLE_NAME + " WHERE Id_categoria = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -73,7 +71,7 @@ public class CategoriaDS  {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setId(rs.getInt("ID"));
+				bean.setId(rs.getInt("ID_categoria"));
 				bean.setNome(rs.getString("NOME"));
 			}
 
@@ -89,19 +87,18 @@ public class CategoriaDS  {
 		return bean;
 	}
 
-	
 	public synchronized boolean doDelete(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + CategoriaDS.TABLE_NAME + " WHERE ID = ?";
+		String deleteSQL = "DELETE FROM " + CategoriaDS.TABLE_NAME + " WHERE Id_categoria = ?";
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setInt(1,id);
+			preparedStatement.setInt(1, id);
 			result = preparedStatement.executeUpdate();
 
 		} finally {
@@ -116,7 +113,6 @@ public class CategoriaDS  {
 		return (result != 0);
 	}
 
-	
 	public synchronized Collection<Categoria> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

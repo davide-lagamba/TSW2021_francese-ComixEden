@@ -14,22 +14,22 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class ProduttoreDS {
-    private static DataSource ds;
+	private static DataSource ds;
 
-    static{
-        try {
-            Context initCtx = new InitialContext();
+	static {
+		try {
+			Context initCtx = new InitialContext();
 			Context envCtx = (Context) initCtx.lookup("java:comp/env");
 
 			ds = (DataSource) envCtx.lookup("jdbc/comixedendb");
-        } catch (Exception e) {
-            System.out.println("Error:" + e.getMessage());
-        }
-    }
+		} catch (Exception e) {
+			System.out.println("Error:" + e.getMessage());
+		}
+	}
 
-    private static final String TABLE_NAME = "produttore";
+	private static final String TABLE_NAME = "produttore";
 
-    public synchronized void doSave(Produttore producer) throws SQLException {
+	public synchronized void doSave(Produttore producer) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -43,7 +43,7 @@ public class ProduttoreDS {
 			preparedStatement.setInt(1, producer.getId_produttore());
 			preparedStatement.setString(2, producer.getPartita_iva());
 			preparedStatement.setString(3, producer.getNome());
-			
+
 			preparedStatement.executeUpdate();
 
 			connection.commit();
@@ -58,7 +58,7 @@ public class ProduttoreDS {
 		}
 	}
 
-    public synchronized Produttore doRetrieveByKey(int code) throws SQLException {
+	public synchronized Produttore doRetrieveByKey(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -76,7 +76,7 @@ public class ProduttoreDS {
 			while (rs.next()) {
 				bean.setId_produttore(rs.getInt("id_produttore"));
 				bean.setPartita_iva(rs.getString("partita_iva"));
-				bean.setNome(rs.getString("nome"));				
+				bean.setNome(rs.getString("nome"));
 			}
 
 		} finally {
@@ -90,8 +90,8 @@ public class ProduttoreDS {
 		}
 		return bean;
 	}
-	
-    public synchronized boolean doDelete(int code) throws SQLException {
+
+	public synchronized boolean doDelete(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -118,7 +118,7 @@ public class ProduttoreDS {
 		return (result != 0);
 	}
 
-    public synchronized Collection<Produttore> doRetrieveAll(String order) throws SQLException {
+	public synchronized Collection<Produttore> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -155,16 +155,14 @@ public class ProduttoreDS {
 		}
 		return products;
 	}
-	
+
 	public static DataSource getDs() {
 		return ds;
 	}
 
-
 	public static void setDs(DataSource ds) {
 		ProduttoreDS.ds = ds;
 	}
-
 
 	public static String getTableName() {
 		return TABLE_NAME;

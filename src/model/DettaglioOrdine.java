@@ -51,6 +51,11 @@ public class DettaglioOrdine {
     return(tot);
   }
   
+  public String getPrezzoTotString() {
+	  Double tot=(getPrezzoTot()*getNumItems());
+	  return String.format("%.2f", tot) + "€";
+  }
+  
   public int getNumItems() {
     return(numItems);
   }

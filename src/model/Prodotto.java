@@ -160,14 +160,16 @@ public class Prodotto implements Serializable{
 	}
 	
 	 public double getPrezzoTot() {
-		  Double prezzo=getPrezzoBase();
-		  int sconto=getSconto();
-		  Double iva=getIva();
-		  Double tot= (prezzo*(100+iva))/100;
-		  tot=(tot*(100-sconto))/100;
-	    return(tot);
+		
+		double tot=(((getPrezzoBase()*(100+getIva()))/100)*(100-getSconto()))/100;
+	    return (tot);
 	  }
-
+	 
+	 public String getPrezzoTotString() {
+		 
+	    return String.format("%.2f", getPrezzoTot()) + "€";
+	  }
+	 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
