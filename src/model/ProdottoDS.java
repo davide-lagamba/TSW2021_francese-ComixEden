@@ -41,7 +41,7 @@ public class ProdottoDS {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProdottoDS.TABLE_NAME
-				+ " (prezzo_base, descrizione, stato, peso, pagine, autori, lingua, immagine, data, disponibilita, sconto, colore_stampa, iva, score_medio, id_produttore, id_categoria, nome) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ " (prezzo_base, descrizione, stato, peso, pagine, autori, lingua, data, disponibilita, sconto, colore_stampa, iva, score_medio, id_produttore, id_categoria, nome) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -59,28 +59,25 @@ public class ProdottoDS {
 			}else {
 			preparedStatement.setString(6, product.getAutori());}
 			preparedStatement.setString(7, product.getLingua());
-			if(product.getImg()==null) {
-				preparedStatement.setNull(8, Types.BLOB);
-			}else {
-			preparedStatement.setBlob(8, product.getImg());}
-			preparedStatement.setDate(9, product.getData());
-			preparedStatement.setInt(10, product.getDisponibilita());
-			preparedStatement.setInt(11, product.getSconto());
-			preparedStatement.setString(12, product.getColoreStampa());
-			preparedStatement.setDouble(13, product.getIva());
+			
+			preparedStatement.setDate(8, product.getData());
+			preparedStatement.setInt(9, product.getDisponibilita());
+			preparedStatement.setInt(10, product.getSconto());
+			preparedStatement.setString(11, product.getColoreStampa());
+			preparedStatement.setDouble(12, product.getIva());
 			if(product.getScoreMedio()==-1) {
-				preparedStatement.setNull(14, Types.DOUBLE);
+				preparedStatement.setNull(13, Types.DOUBLE);
 			}else {
-			preparedStatement.setDouble(14, product.getScoreMedio());}
+			preparedStatement.setDouble(13, product.getScoreMedio());}
 			if(product.getIdProduttore()==-1) {
-				preparedStatement.setNull(15, Types.INTEGER);
+				preparedStatement.setNull(14, Types.INTEGER);
 			}else {
-			preparedStatement.setInt(15, product.getIdProduttore());}
+			preparedStatement.setInt(14, product.getIdProduttore());}
 			if(product.getIdCategoria()==-1) {
-				preparedStatement.setNull(16, Types.INTEGER);
+				preparedStatement.setNull(15, Types.INTEGER);
 			}
-			preparedStatement.setInt(16, product.getIdCategoria());
-			preparedStatement.setString(17, product.getNome());
+			preparedStatement.setInt(15, product.getIdCategoria());
+			preparedStatement.setString(16, product.getNome());
 
 			preparedStatement.executeUpdate();
 
@@ -121,7 +118,6 @@ public class ProdottoDS {
 				bean.setPagine(rs.getInt("pagine"));
 				bean.setAutori(rs.getString("autori"));
 				bean.setLingua(rs.getString("lingua"));
-				bean.setImg(rs.getBlob("immagine"));
 				bean.setData(rs.getDate("data"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));
 				bean.setSconto(rs.getInt("sconto"));
@@ -201,7 +197,6 @@ public class ProdottoDS {
 				bean.setPagine(rs.getInt("pagine"));
 				bean.setAutori(rs.getString("autori"));
 				bean.setLingua(rs.getString("lingua"));
-				bean.setImg(rs.getBlob("immagine"));
 				bean.setData(rs.getDate("data"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));
 				bean.setSconto(rs.getInt("sconto"));
@@ -253,7 +248,6 @@ public class ProdottoDS {
 				bean.setPagine(rs.getInt("pagine"));
 				bean.setAutori(rs.getString("autori"));
 				bean.setLingua(rs.getString("lingua"));
-				bean.setImg(rs.getBlob("immagine"));
 				bean.setData(rs.getDate("data"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));
 				bean.setSconto(rs.getInt("sconto"));

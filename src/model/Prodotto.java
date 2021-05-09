@@ -16,7 +16,6 @@ public class Prodotto implements Serializable{
 	double peso;
 	int pagine;
 	String autori;
-	Blob img;
 	Date data;
 	String lingua;
 	int disponibilita;
@@ -37,7 +36,6 @@ public class Prodotto implements Serializable{
 		pagine=0;
 		autori="";
 		lingua="";
-		img= null;
 		data= null;
 		disponibilita=0;
 		sconto=0;
@@ -92,12 +90,7 @@ public class Prodotto implements Serializable{
 	public void setAutori(String autori) {
 		this.autori = autori;
 	}
-	public Blob getImg() {
-		return img;
-	}
-	public void setImg(Blob img) {
-		this.img = img;
-	}
+
 	public Date getData() {
 		return data;
 	}
@@ -182,7 +175,6 @@ public class Prodotto implements Serializable{
 		result = prime * result + id;
 		result = prime * result + idCategoria;
 		result = prime * result + idProduttore;
-		result = prime * result + ((img == null) ? 0 : img.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(iva);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -237,11 +229,7 @@ public class Prodotto implements Serializable{
 			return false;
 		if (idProduttore != other.idProduttore)
 			return false;
-		if (img == null) {
-			if (other.img != null)
-				return false;
-		} else if (!img.equals(other.img))
-			return false;
+		
 		if (Double.doubleToLongBits(iva) != Double.doubleToLongBits(other.iva))
 			return false;
 		if (lingua == null) {
@@ -275,13 +263,13 @@ public class Prodotto implements Serializable{
 	@Override
 	public String toString() {
 		return "Prodotto [id=" + id + ", prezzoBase=" + prezzoBase + ", descrizione=" + descrizione + ", stato=" + stato
-				+ ", peso=" + peso + ", pagine=" + pagine + ", autori=" + autori + ", img=" + img + ", data=" + data
+				+ ", peso=" + peso + ", pagine=" + pagine + ", autori=" + autori +  ", data=" + data
 				+ ", lingua=" + lingua + ", disponibilita=" + disponibilita + ", sconto=" + sconto + ", coloreStampa="
 				+ coloreStampa + ", iva=" + iva + ", scoreMedio=" + scoreMedio + ", idProduttore=" + idProduttore
 				+ ", idCategoria=" + idCategoria + ", nome=" + nome + ", getId()=" + getId() + ", getPrezzoBase()="
 				+ getPrezzoBase() + ", getDescrizione()=" + getDescrizione() + ", getStato()=" + getStato()
 				+ ", getPeso()=" + getPeso() + ", getPagine()=" + getPagine() + ", getAutori()=" + getAutori()
-				+ ", getImg()=" + getImg() + ", getData()=" + getData() + ", getDisponibilita()=" + getDisponibilita()
+				 + ", getData()=" + getData() + ", getDisponibilita()=" + getDisponibilita()
 				+ ", getSconto()=" + getSconto() + ", getColoreStampa()=" + getColoreStampa() + ", getLingua()="
 				+ getLingua() + ", getIva()=" + getIva() + ", getScoreMedio()=" + getScoreMedio()
 				+ ", getIdProduttore()=" + getIdProduttore() + ", getIdCategoria()=" + getIdCategoria() + ", getNome()="

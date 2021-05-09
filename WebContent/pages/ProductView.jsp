@@ -42,6 +42,7 @@
 				<th><a href="product?sort=disponibilita">Disponibilità</a></th>
 				<th><a href="product?sort=PrezzoTot">Prezzo totale</a></th>
 				<th>Quantità</th>
+				<th>Immagine</th>
 				<th>Azione</th>
 			</tr>
 			<%
@@ -60,6 +61,9 @@
 				<td><form action="product" method="post">
 						<input id="quantita" type="number" name="quantita" min="1"
 							max="<%=bean.getDisponibilita()%>"></td>
+				<td><div><img src="images/<%=(new ImmagineDS()).doRetrieveByKey(bean.getId()).getNome()%>" alt="<%=bean.getNome()%>"></div>
+				</td>
+				
 				<td><input type="hidden" name="id" value=<%=bean.getId()%>>
 					<a href="product?id=<%=bean.getId()%>">Dettagli</a> <input
 					type="submit" name="action" value="Aggiungi al carrello"></input></a>

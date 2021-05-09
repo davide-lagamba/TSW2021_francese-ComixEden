@@ -28,9 +28,40 @@
 		<h2><%=product.getNome()%></h2>
 
 		<table border="1">
-			<tr>
-				<th>Nome</th>
-				<td><%=product.getNome()%></td>
+
+				
+				<%
+					Collection<Immagine> img = (new ImmagineDS()).doRetrieveAll(product.getId());
+					if (img != null && img.size() != 0) {
+						Iterator<?> it = img.iterator();
+						while (it.hasNext()) {
+							Immagine bean = (Immagine) it.next();
+							if (bean.isCopertina()) {
+				%>
+
+				<img src="images/<%=bean.getNome()%>" class="dettagliimg">
+
+				<%
+					}
+						}
+					}
+				%>
+				<%
+					if (img != null && img.size() != 0) {
+						Iterator<?> it = img.iterator();
+						while (it.hasNext()) {
+							Immagine bean = (Immagine) it.next();
+							if (!bean.isCopertina()) {
+				%>
+				<img src="images/<%=bean.getNome()%>" class="dettagliimg">
+			</div>
+			<%
+				}
+					}
+				}
+			%>
+			<th>Nome</th>
+			<td><%=product.getNome()%></td>
 			</tr>
 			<tr>
 				<th>Descrizione</th>
