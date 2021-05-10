@@ -5,8 +5,8 @@ public class Categoria implements Serializable{
 	
 private static final long serialVersionUID = 1L;
 	
-	int id;
-	String nome;
+	private int id;
+	private String nome;
 
 	public int getId() {
 		return id;
