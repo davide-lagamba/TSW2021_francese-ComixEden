@@ -16,7 +16,7 @@ private static final long serialVersionUID = 1L;
 	private double prezzoTotale;
 	private int quantita;
 	private Date data;
-	private int consegnato;
+	private boolean consegnato;
 
 	public void setIdOrdine(int idOrdine) {
 		this.idOrdine=idOrdine;
@@ -48,7 +48,7 @@ private static final long serialVersionUID = 1L;
 	public void setData(Date data) {
 		this.data=data;
 	}
-	public void setConsegnato(int consegnato) {
+	public void setConsegnato(boolean consegnato) {
 		this.consegnato=consegnato;
 	}
 	public int getIdOrdine() {
@@ -81,7 +81,7 @@ private static final long serialVersionUID = 1L;
 	public Date getData() {
 		return data;
 	}
-	public int getConsegnato() {
+	public boolean getConsegnato() {
 		return consegnato;
 	}
 

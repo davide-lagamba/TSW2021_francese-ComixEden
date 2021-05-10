@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 
 /** Associates a catalog Item with a specific order by
  *  keeping track of the number ordered and the total price.
@@ -13,13 +14,45 @@ package model;
  *  &copy; 2003 Marty Hall; may be freely used or adapted.
  */
 
-public class DettaglioOrdine {
-  private Prodotto item;
+public class DettaglioOrdine implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+private Prodotto item;
   private int numItems;
+  private int idProdotto;
+  private int idDettaglio;
+  private int idOrdine;
+  private double prezzoTot;
+  private double prezzoSingolo;
+  private double iva;
+  private String nome;
+  private double sconto;
+  
+  
+  public DettaglioOrdine() {
+	  item=null;
+	    setNumItems(1);
+	    idProdotto=-1;
+	    idDettaglio=-1;
+	    idOrdine=-1;
+	    prezzoTot=-1;
+	    prezzoSingolo=-1;
+	    iva=-1;
+	    nome="";
+	    sconto=-1;
+	  }
 
   public DettaglioOrdine(Prodotto item) {
     setItem(item);
     setNumItems(1);
+    idProdotto=item.getId();
+    idDettaglio=-1;
+    idOrdine=-1;
+    prezzoTot=item.getPrezzoTot()*numItems;
+    prezzoSingolo=item.getPrezzoBase();
+    iva=item.getIva();
+    nome=item.getNome();
+    sconto=item.getSconto();
   }
 
   public Prodotto getItem() {
@@ -77,4 +110,131 @@ public class DettaglioOrdine {
   public double getTotalCost() {
     return(getNumItems() * getPrezzoTot());
   }
+
+public int getIdProdotto() {
+	return idProdotto;
+}
+
+public void setIdProdotto(int idProdotto) {
+	this.idProdotto = idProdotto;
+}
+
+public int getIdDettaglio() {
+	return idDettaglio;
+}
+
+public void setIdDettaglio(int idDettaglio) {
+	this.idDettaglio = idDettaglio;
+}
+
+public int getIdOrdine() {
+	return idOrdine;
+}
+
+public void setIdOrdine(int idOrdine) {
+	this.idOrdine = idOrdine;
+}
+
+public double getPrezzoSingolo() {
+	return prezzoSingolo;
+}
+
+public void setPrezzoSingolo(double prezzoSingolo) {
+	this.prezzoSingolo = prezzoSingolo;
+}
+
+public double getIva() {
+	return iva;
+}
+
+public void setIva(double iva) {
+	this.iva = iva;
+}
+
+public double getSconto() {
+	return sconto;
+}
+
+public void setSconto(double sconto) {
+	this.sconto = sconto;
+}
+
+public static long getSerialversionuid() {
+	return serialVersionUID;
+}
+
+public void setPrezzoTot(double prezzoTot) {
+	this.prezzoTot = prezzoTot;
+}
+
+public void setNome(String nome) {
+	this.nome = nome;
+}
+
+@Override
+public String toString() {
+	return "DettaglioOrdine [item=" + item + ", numItems=" + numItems + ", idProdotto=" + idProdotto + ", idDettaglio="
+			+ idDettaglio + ", idOrdine=" + idOrdine + ", prezzoTot=" + prezzoTot + ", prezzoSingolo=" + prezzoSingolo
+			+ ", iva=" + iva + ", nome=" + nome + ", sconto=" + sconto + "]";
+}
+
+@Override
+public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + idDettaglio;
+	result = prime * result + idOrdine;
+	result = prime * result + idProdotto;
+	result = prime * result + ((item == null) ? 0 : item.hashCode());
+	long temp;
+	temp = Double.doubleToLongBits(iva);
+	result = prime * result + (int) (temp ^ (temp >>> 32));
+	result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+	result = prime * result + numItems;
+	temp = Double.doubleToLongBits(prezzoSingolo);
+	result = prime * result + (int) (temp ^ (temp >>> 32));
+	temp = Double.doubleToLongBits(prezzoTot);
+	result = prime * result + (int) (temp ^ (temp >>> 32));
+	temp = Double.doubleToLongBits(sconto);
+	result = prime * result + (int) (temp ^ (temp >>> 32));
+	return result;
+}
+
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	DettaglioOrdine other = (DettaglioOrdine) obj;
+	if (idDettaglio != other.idDettaglio)
+		return false;
+	if (idOrdine != other.idOrdine)
+		return false;
+	if (idProdotto != other.idProdotto)
+		return false;
+	if (item == null) {
+		if (other.item != null)
+			return false;
+	} else if (!item.equals(other.item))
+		return false;
+	if (Double.doubleToLongBits(iva) != Double.doubleToLongBits(other.iva))
+		return false;
+	if (nome == null) {
+		if (other.nome != null)
+			return false;
+	} else if (!nome.equals(other.nome))
+		return false;
+	if (numItems != other.numItems)
+		return false;
+	if (Double.doubleToLongBits(prezzoSingolo) != Double.doubleToLongBits(other.prezzoSingolo))
+		return false;
+	if (Double.doubleToLongBits(prezzoTot) != Double.doubleToLongBits(other.prezzoTot))
+		return false;
+	if (Double.doubleToLongBits(sconto) != Double.doubleToLongBits(other.sconto))
+		return false;
+	return true;
+}
 }

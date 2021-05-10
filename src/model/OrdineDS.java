@@ -49,7 +49,7 @@ public class OrdineDS {
 			preparedStatement.setDouble(8, ordine.getPrezzoTotale());
 			preparedStatement.setInt(9, ordine.getQuantita());
 			preparedStatement.setDate(10, ordine.getData());
-			preparedStatement.setInt(11, ordine.getConsegnato());
+			preparedStatement.setBoolean(11, ordine.getConsegnato());
 
 			preparedStatement.executeUpdate();
 
@@ -82,7 +82,7 @@ public class OrdineDS {
 
 			while (rs.next()) {
 				bean.setIdOrdine(rs.getInt("id_ordine"));
-				bean.setConsegnato(rs.getInt("consegnato"));
+				bean.setConsegnato(rs.getBoolean("consegnato"));
 				bean.setCostoSpedizione(rs.getDouble("costo_spedizione"));
 				bean.setData(rs.getDate("data"));
 				bean.setIdFatturazione(rs.getInt("id_categoria"));
@@ -162,7 +162,7 @@ public class OrdineDS {
 				bean.setPrezzoTotale(rs.getDouble("prezzo_totale"));
 				bean.setQuantita(rs.getInt("quantita"));
 				bean.setData(rs.getDate("data"));
-				bean.setConsegnato(rs.getInt("consegnato"));
+				bean.setConsegnato(rs.getBoolean("consegnato"));
 				ordini.add(bean);
 			}
 
@@ -176,6 +176,38 @@ public class OrdineDS {
 			}
 		}
 		return ordini;
+	}
+	
+	
+	public synchronized int getNewId() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<Ordine> ordini = new LinkedList<Ordine>();
+
+		String selectSQL = "SELECT ifnull(max(id_ordine)+1, 1) " + OrdineDS.TABLE_NAME;
+		int result=-1;
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+			result=rs.getInt(1);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return result;
 	}
 
 }
