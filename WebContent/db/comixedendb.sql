@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `dettaglio_ordine`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `dettaglio_ordine` (
-  `id_dettaglio` int NOT NULL,
+  `id_dettaglio` int NOT NULL AUTO_INCREMENT,
   `id_prodotto` int NOT NULL,
   `id_ordine` int NOT NULL,
   `prezzo_tot` double NOT NULL,
@@ -108,7 +108,7 @@ DROP TABLE IF EXISTS `ordine`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ordine` (
-  `id_ordine` int NOT NULL,
+  `id_ordine` int NOT NULL AUTO_INCREMENT,
   `id_utente` int NOT NULL,
   `id_spedizione` int DEFAULT NULL,
   `id_fatturazione` int DEFAULT NULL,
@@ -210,7 +210,7 @@ DROP TABLE IF EXISTS `utente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `utente` (
-  `id_utente` int NOT NULL,
+  `id_utente` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   `cognome` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
@@ -240,4 +240,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-09 18:44:42
+-- Dump completed on 2021-05-10 13:54:34
