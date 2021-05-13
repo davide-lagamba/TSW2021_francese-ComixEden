@@ -38,7 +38,7 @@
     %>
     <form action="./Reg" method="post"> <% }} else {%>
     
-<form action="../Reg" method="post">
+<form action="Reg" method="post">
 <% } %>
   <div class="container">
     <h1>Register</h1>

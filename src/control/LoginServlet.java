@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 	           throws ServletException, IOException {
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/registration.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/login.jsp");
         dispatcher.forward(request, response);
 	}
 	
