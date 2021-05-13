@@ -216,7 +216,7 @@ CREATE TABLE `utente` (
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `telefono` varchar(45) DEFAULT NULL,
-  `data-registrazione` date NOT NULL,
+  `data_registrazione` date NOT NULL,
   `admin` tinyint NOT NULL,
   PRIMARY KEY (`id_utente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

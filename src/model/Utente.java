@@ -20,6 +20,8 @@ public class Utente implements Serializable {
 	private boolean admin;
 	private boolean registrazione;
 	
+	public boolean valid; //controlla la presenza nel DB
+	
 	public Utente() {
 		this.id_utente = -1;
 		this.nome = "";
@@ -141,6 +143,14 @@ public class Utente implements Serializable {
 
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+	
+	public boolean isValid() {
+		return valid;
+	}
+
+	public void setValid(boolean newValid) {
+		this.valid = newValid;
 	}
 
 	@Override

@@ -186,6 +186,60 @@ public class UtenteDS {
 		return bean;
 	}
 	
+	public static Utente doRetrieve(String email, String password) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		
+
+		Utente bean = new Utente();
+
+		// String searchQuery = "SELECT * FROM " + UtenteDS.TABLE_NAME + " WHERE email= ? AND password = ?"; //NON MI FUNZIONA
+		String searchQuery ="SELECT * FROM " + UtenteDS.TABLE_NAME + " WHERE email='" + email + "' AND password='" + password + "'";
+
+		try {
+			//connect to DB 
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(searchQuery);
+			//preparedStatement.setString(1, email);
+			//preparedStatement.setString(2, password);
+			rs = preparedStatement.executeQuery(searchQuery);
+			
+			boolean more = rs.next();
+
+			// if user does not exist set the isValid variable to false
+			if (!more) {
+				System.out.println("Utente non registrato");
+				bean.setValid(false);
+			}
+
+			// if user exists set the isValid variable to true
+			else if (more) {
+				System.out.println("Utente trovato");
+				bean.setId_utente(rs.getInt("id_utente"));
+				bean.setNome(rs.getString("nome"));
+				bean.setCognome(rs.getString("cognome"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+				bean.setTelefono(rs.getString("telefono"));
+				bean.setData_registrazione(rs.getDate("data_registrazione"));
+				bean.setAdmin(rs.getBoolean("admin"));
+				bean.setValid(true);
+			}
+			
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return bean;
+	}
+	
 	public synchronized boolean doDelete(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
