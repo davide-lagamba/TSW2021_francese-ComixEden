@@ -2,6 +2,9 @@ package model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class Utente implements Serializable {
 
@@ -15,6 +18,7 @@ public class Utente implements Serializable {
 	private String telefono;
 	private Date data_registrazione;
 	private boolean admin;
+	private boolean registrazione;
 	
 	public Utente() {
 		this.id_utente = -1;
@@ -26,7 +30,20 @@ public class Utente implements Serializable {
 		this.data_registrazione = null;
 		this.admin = false;
 	}
-
+	
+	public Utente(String nome, String cognome, String email, String password, String telefono) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.email = email;
+		this.password = password;
+		this.telefono=telefono;
+		this.admin = false;
+		long miliseconds = System.currentTimeMillis();
+        Date date = new Date(miliseconds);
+		this.data_registrazione=date;
+		System.out.println(password);
+	}
+	
 	public Utente(int id_utente, String nome, String cognome, String email, String password) {
 		this.id_utente = id_utente;
 		this.nome = nome;
@@ -35,6 +52,9 @@ public class Utente implements Serializable {
 		this.password = password;
 		this.data_registrazione =  null;
 		this.admin = false;
+		long miliseconds = System.currentTimeMillis();
+        Date date = new Date(miliseconds);
+		this.data_registrazione=date;
 	}
 
 	public Utente(int id_utente, String nome, String cognome, String email, String password, String telefono,
@@ -49,6 +69,11 @@ public class Utente implements Serializable {
 		this.data_registrazione = data_registrazione;
 		this.admin = admin;
 	}
+	
+	public boolean getRegistrazione() {
+		return registrazione;
+	}
+	
 
 	public int getId_utente() {
 		return id_utente;
@@ -72,6 +97,10 @@ public class Utente implements Serializable {
 
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
+	}
+	
+	public void setRegistrazione(boolean registrazione) {
+		this.registrazione=registrazione;
 	}
 
 	public String getEmail() {
