@@ -33,27 +33,27 @@ public class OrdineDS {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO " + OrdineDS.TABLE_NAME + " (id_ordine,id_utente,id_spedizione,id_fatturazione,note,id_pagamento,"
-				+ "costo_spedizione,prezzo_totale,quantita,data,consegnato) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		String insertSQL = "INSERT INTO " + OrdineDS.TABLE_NAME + " (id_utente,id_spedizione,id_fatturazione,note,id_pagamento,"
+				+ "costo_spedizione,prezzo_totale,quantita,data,consegnato) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		try {
 			connection = ds.getConnection();
+			connection.setAutoCommit(true);
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, ordine.getIdOrdine());
-			preparedStatement.setInt(2, ordine.getIdUtente());
-			preparedStatement.setInt(3, ordine.getIdSpedizione());
-			preparedStatement.setInt(4, ordine.getIdFatturazione());
-			preparedStatement.setString(5, ordine.getNote());
-			preparedStatement.setInt(6, ordine.getIdPagamento());
-			preparedStatement.setDouble(7, ordine.getCostoSpedizione());
-			preparedStatement.setDouble(8, ordine.getPrezzoTotale());
-			preparedStatement.setInt(9, ordine.getQuantita());
-			preparedStatement.setDate(10, ordine.getData());
-			preparedStatement.setBoolean(11, ordine.getConsegnato());
+			preparedStatement.setInt(1, ordine.getIdUtente());
+			preparedStatement.setInt(2, ordine.getIdSpedizione());
+			preparedStatement.setInt(3, ordine.getIdFatturazione());
+			preparedStatement.setString(4, ordine.getNote());
+			preparedStatement.setInt(5, ordine.getIdPagamento());
+			preparedStatement.setDouble(6, ordine.getCostoSpedizione());
+			preparedStatement.setDouble(7, ordine.getPrezzoTotale());
+			preparedStatement.setInt(8, ordine.getQuantita());
+			preparedStatement.setDate(9, ordine.getData());
+			preparedStatement.setBoolean(10, ordine.getConsegnato());
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
+		//	connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -63,6 +63,8 @@ public class OrdineDS {
 					connection.close();
 			}
 		}
+		
+
 	}
 
 	public synchronized Ordine doRetrieveByKey(int id) throws SQLException {
@@ -132,22 +134,23 @@ public class OrdineDS {
 		return (result != 0);
 	}
 
-	public synchronized Collection<Ordine> doRetrieveAll(String order) throws SQLException {
+	public synchronized Collection<Ordine> doRetrieveAll(int id, String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		Collection<Ordine> ordini = new LinkedList<Ordine>();
 
-		String selectSQL = "SELECT * FROM " + OrdineDS.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + OrdineDS.TABLE_NAME +" WHERE id_utente= ?";
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
 		}
+		
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-
+			preparedStatement.setInt(1, id);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -185,7 +188,7 @@ public class OrdineDS {
 
 		Collection<Ordine> ordini = new LinkedList<Ordine>();
 
-		String selectSQL = "SELECT ifnull(max(id_ordine)+1, 1) " + OrdineDS.TABLE_NAME;
+		String selectSQL = "select max(id_ordine)  from "+ OrdineDS.TABLE_NAME;
 		int result=-1;
 
 		try {

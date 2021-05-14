@@ -220,6 +220,31 @@ public class ProdottoDS {
 		return products;
 	}
 	
+	public synchronized void removeDisponibilita(int id, int q) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+
+		String selectSQL = "UPDATE " + ProdottoDS.TABLE_NAME + " SET disponibilita=disponibilita-? WHERE id_prodotto = ?" ;
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, q);
+			preparedStatement.setInt(2, id);
+			preparedStatement.executeUpdate();
+		}finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+	}
+	
 	public synchronized Collection<Prodotto> doRetrieveAllPrezzoTot() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

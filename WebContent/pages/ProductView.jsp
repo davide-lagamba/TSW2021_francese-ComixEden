@@ -13,6 +13,9 @@
 	Prodotto product = (Prodotto) request.getAttribute("product");
 
 	Carrello cart = (Carrello) request.getAttribute("cart");
+	
+	Utente user = (Utente) request.getSession().getAttribute("utente");		
+	
 %>
 
 <!DOCTYPE html>
@@ -65,8 +68,9 @@
 				</td>
 				
 				<td><input type="hidden" name="id" value=<%=bean.getId()%>>
-					<a href="product?id=<%=bean.getId()%>">Dettagli</a> <input
-					type="submit" name="action" value="Aggiungi al carrello"></input></a>
+					<a href="product?id=<%=bean.getId()%>">Dettagli</a>
+					<%if(bean.getDisponibilita()>0) {%> <input
+					type="submit" name="action" value="Aggiungi al carrello"></input></a><%} %>
 				</form></td>
 			</tr>
 			<%

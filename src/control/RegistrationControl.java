@@ -42,14 +42,26 @@ public class RegistrationControl extends HttpServlet{
 			       String cognome = (String) request.getParameter("cognome");
 			       String email = (String) request.getParameter("email");
 			       String password = (String) request.getParameter("password");
-			       String rPassword = (String) request.getParameter("pasw-repeat");
+			       String rPassword = (String) request.getParameter("psw-repeat");
+			       Utente testEmail= new UtenteDS().doRetrieveByKey(email);
+			       if(testEmail.getId_utente()!=-1) {
+			    	   request.setAttribute("error","errorEmail");
+		        	   request.getSession().setAttribute("cart", cart);  
+				       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/registration.jsp");
+				       dispatcher.forward(request, response);
+				       return;
+			       }
+			       
 			       if (!password.equals(rPassword))
 			       {
 			    	   request.setAttribute("error","errorP");
 		        	   request.getSession().setAttribute("cart", cart);  
 				       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/registration.jsp");
 				       dispatcher.forward(request, response);
+				       return;
 			       }
+			       
+			     
 			       String telefono = (String) request.getParameter("telefono");
 			       
 		           Utente user = new Utente(nome,cognome,email,password,telefono);
@@ -58,10 +70,16 @@ public class RegistrationControl extends HttpServlet{
 		           if (user.getRegistrazione())
 		           {
 		        	   Utente userReg=model.doRetrieveByKey(email);
-		        	   request.getSession().setAttribute("user", userReg);
+		        	   request.getSession().setAttribute("utente", userReg);
 		        	   request.getSession().setAttribute("cart", cart);  
-				       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/userLogged.jsp");
+		        	   if(request.getSession().getAttribute("page").equals("checkout")) {
+				       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cartView");
 				       dispatcher.forward(request, response);
+				       return;}else {
+				    	   RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/product");
+					       dispatcher.forward(request, response);
+					       return;
+				       }
 		                 		
 		           }
 		      	        

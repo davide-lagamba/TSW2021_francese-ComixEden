@@ -194,16 +194,16 @@ public class UtenteDS {
 
 		Utente bean = new Utente();
 
-		// String searchQuery = "SELECT * FROM " + UtenteDS.TABLE_NAME + " WHERE email= ? AND password = ?"; //NON MI FUNZIONA
-		String searchQuery ="SELECT * FROM " + UtenteDS.TABLE_NAME + " WHERE email='" + email + "' AND password='" + password + "'";
+		 String searchQuery = "SELECT * FROM " + UtenteDS.TABLE_NAME + " WHERE email=? AND password=?"; 
+	
 
 		try {
 			//connect to DB 
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(searchQuery);
-			//preparedStatement.setString(1, email);
-			//preparedStatement.setString(2, password);
-			rs = preparedStatement.executeQuery(searchQuery);
+			preparedStatement.setString(1, email);
+			preparedStatement.setString(2, password);
+			rs = preparedStatement.executeQuery();
 			
 			boolean more = rs.next();
 

@@ -24,6 +24,18 @@ td img{
 	width: 70%;
 }
 
+button {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .container {
 	min-height: 100%;
   height: auto;
@@ -37,6 +49,14 @@ td img{
 	display: block;
   content: '';
   height: 60px;
+}
+
+fieldset{
+	width:50%;
+}
+
+.container form{
+	    text-align: -webkit-center;
 }
 
 h2 {font-family: Roboto,Trebuchet MS,Helvetica,Arial,sans-serif;

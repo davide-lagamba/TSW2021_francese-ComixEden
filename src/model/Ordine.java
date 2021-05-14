@@ -75,6 +75,10 @@ private static final long serialVersionUID = 1L;
 	public double getPrezzoTotale() {
 		return prezzoTotale;
 	}
+	
+	public String getPrezzoTotaleString() {
+		  return String.format("%.2f", getPrezzoTotale()) + "€";
+	}
 	public int getQuantita() {
 		return quantita;
 	}

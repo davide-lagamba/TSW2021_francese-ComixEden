@@ -20,13 +20,20 @@ Carrello cart = (Carrello) request.getAttribute("cart");
 
 <body>
 <%@ include file="../fragments/header.jsp" %>
-	<div>
+	<div class="container">
 		<h2>Login</h2>
 		<form action="login" method="post">
-			Please enter your email <input type="text" name="email"><br>
-			Please enter your password <input type="text" name="pw"> 
+			Please enter your email <input type="text" name="email" required><br><br>
+			Please enter your password <input type="text" name="pw" required> <br><br>
 			<input type="submit" value="login">
+			
+		<%if(request.getAttribute("error")!=null){
+			
+			%>
+			<p><%=request.getAttribute("error") %>
+		<%}%>
 		</form>
+		Non hai un account? <a href="Reg">Registrati</a>
 	</div>
 </body>
 

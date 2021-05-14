@@ -73,10 +73,9 @@ public class CartControl  extends HttpServlet{
 				
 			else if (action.equalsIgnoreCase("Checkout")) {
 				cart = new Carrello();
-				request.getSession().setAttribute("cart", cart);
-				request.setAttribute("cart", cart);
 				RequestDispatcher dispatcher =   getServletContext().getRequestDispatcher("/pages/checkout.jsp");
 				dispatcher.forward(request, response);
+				return;
 			}
 			}
 

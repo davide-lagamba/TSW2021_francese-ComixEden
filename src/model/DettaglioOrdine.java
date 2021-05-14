@@ -27,11 +27,11 @@ private Prodotto item;
   private double iva;
   private String nome;
   private double sconto;
-  
+  private int quantita;
   
   public DettaglioOrdine() {
 	  item=null;
-	    setNumItems(1);
+	   numItems=-1;
 	    idProdotto=-1;
 	    idDettaglio=-1;
 	    idOrdine=-1;
@@ -40,6 +40,7 @@ private Prodotto item;
 	    iva=-1;
 	    nome="";
 	    sconto=-1;
+	    quantita=-1;
 	  }
 
   public DettaglioOrdine(Prodotto item) {
@@ -71,6 +72,9 @@ private Prodotto item;
     return(getItem().getNome());
   }
 
+  public String getNomeDettaglio() {
+	  return nome;
+  }
   public String getDescrizione() {
     return(getItem().getDescrizione());
   }
@@ -82,6 +86,22 @@ private Prodotto item;
 	  Double tot= (prezzo*(100+iva))/100;
 	  tot=(tot*(100-sconto))/100;
     return(tot);
+  }
+  
+  public double getPrezzoTotDettaglio() {
+	
+	  Double tot= (prezzoSingolo*(100+iva))/100;
+	  tot=(tot*(100-sconto))/100;
+    return(tot);
+  }
+  
+  public double getPrezzoTotQuantita() {
+	  Double prezzo=getItem().getPrezzoBase();
+	  int sconto=getItem().getSconto();
+	  Double iva=getItem().getIva();
+	  Double tot= (prezzo*(100+iva))/100;
+	  tot=(tot*(100-sconto))/100;
+    return(tot*numItems);
   }
   
   public String getPrezzoTotString() {
@@ -137,6 +157,9 @@ public void setIdOrdine(int idOrdine) {
 
 public double getPrezzoSingolo() {
 	return prezzoSingolo;
+}
+public String getPrezzoTotaleString() {
+	  return String.format("%.2f", getPrezzoTotDettaglio()) + "€";
 }
 
 public void setPrezzoSingolo(double prezzoSingolo) {
@@ -236,5 +259,13 @@ public boolean equals(Object obj) {
 	if (Double.doubleToLongBits(sconto) != Double.doubleToLongBits(other.sconto))
 		return false;
 	return true;
+}
+
+public int getQuantita() {
+	return quantita;
+}
+
+public void setQuantita(int quantita) {
+	this.quantita = quantita;
 }
 }

@@ -35,16 +35,16 @@ public class DettaglioOrdineDS {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
 		String insertSQL = "INSERT INTO " + DettaglioOrdineDS.TABLE_NAME
 				+ " (id_prodotto, id_ordine, prezzo_tot, prezzo_singolo, quantita, iva, nome, sconto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
+			connection.setAutoCommit(true);
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, dettaglio.getIdProdotto());
 			preparedStatement.setInt(2, dettaglio.getIdOrdine());
-			preparedStatement.setDouble(3, dettaglio.getPrezzoTot());
+			preparedStatement.setDouble(3, dettaglio.getPrezzoTotQuantita());
 			preparedStatement.setDouble(4, dettaglio.getPrezzoSingolo());
 			preparedStatement.setInt(5, dettaglio.getNumItems());
 			preparedStatement.setDouble(6, dettaglio.getIva());
@@ -53,7 +53,6 @@ public class DettaglioOrdineDS {
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -134,22 +133,23 @@ public class DettaglioOrdineDS {
 		return (result != 0);
 	}
 	
-	public synchronized Collection<DettaglioOrdine> doRetrieveAll(int idOrdine, String order) throws SQLException {
+	public synchronized Collection<DettaglioOrdine> doRetrieveAllByUser(int id_utente, int idOrdine, String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		Collection<DettaglioOrdine> dettagli = new LinkedList<DettaglioOrdine>();
 
-		String selectSQL = "SELECT * FROM " + DettaglioOrdineDS.TABLE_NAME;
+		String selectSQL = "select * from "+ DettaglioOrdineDS.TABLE_NAME+" join ordine on "+DettaglioOrdineDS.TABLE_NAME+".id_ordine = ordine.id_ordine where id_utente=? and "+DettaglioOrdineDS.TABLE_NAME+".id_ordine=?";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY "+DettaglioOrdineDS.TABLE_NAME+"." + order;
 		}
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-
+			preparedStatement.setInt(1, id_utente);
+			preparedStatement.setInt(2, idOrdine);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -162,7 +162,7 @@ public class DettaglioOrdineDS {
 				bean.setIva(rs.getDouble("iva"));
 				bean.setNome(rs.getString("nome"));
 				bean.setSconto(rs.getDouble("sconto"));
-				bean.setNumItems(rs.getInt("quantita"));
+				bean.setQuantita(rs.getInt("quantita"));
 				dettagli.add(bean);
 			}
 

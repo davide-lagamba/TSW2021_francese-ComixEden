@@ -61,7 +61,8 @@ public class Carrello {
       }
     }
     DettaglioOrdine newOrder = new DettaglioOrdine(new ProdottoDS().doRetrieveByKey(itemID));
-    prodotti.add(newOrder);
+    if(newOrder.getNumItems()>0) {
+    prodotti.add(newOrder);}
   }
   
   public synchronized void removeItem(int itemID) throws SQLException {
@@ -153,6 +154,16 @@ public class Carrello {
 			tot=tot+order.getPrezzoTot()*order.getNumItems();
 				}
 	  return String.format("%.2f", tot)+"€";
+	  }
+  
+  public Double getPrezzoTot() {
+	  double tot=0;
+	  DettaglioOrdine order;
+	  for(int i=0; i<prodotti.size(); i++) {
+		  order = (DettaglioOrdine)prodotti.get(i);
+			tot=tot+order.getPrezzoTot()*order.getNumItems();
+				}
+	  return tot;
 	  }
   
 }
