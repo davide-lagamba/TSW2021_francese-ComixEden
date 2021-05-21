@@ -177,7 +177,49 @@ public class DettaglioOrdineDS {
 		}
 		return dettagli;
 	}
-	
+	public synchronized Collection<DettaglioOrdine> doRetrieveAll(int idOrdine,String order) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<DettaglioOrdine> dettagli = new LinkedList<DettaglioOrdine>();
+
+		String selectSQL = "select * from "+ DettaglioOrdineDS.TABLE_NAME+" join ordine on "+DettaglioOrdineDS.TABLE_NAME+".id_ordine = ordine.id_ordine where " + DettaglioOrdineDS.TABLE_NAME + ".id_ordine=?";
+
+		if (order != null && !order.equals("")) {
+			selectSQL += " ORDER BY "+DettaglioOrdineDS.TABLE_NAME+"." + order;
+		}
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, idOrdine);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				DettaglioOrdine bean = new DettaglioOrdine();
+				bean.setIdDettaglio(rs.getInt("id_dettaglio"));
+				bean.setIdProdotto(rs.getInt("id_prodotto"));
+				bean.setIdOrdine(rs.getInt("id_ordine"));
+				bean.setPrezzoTot(rs.getDouble("prezzo_tot"));
+				bean.setPrezzoSingolo(rs.getDouble("prezzo_singolo"));
+				bean.setIva(rs.getDouble("iva"));
+				bean.setNome(rs.getString("nome"));
+				bean.setSconto(rs.getDouble("sconto"));
+				bean.setQuantita(rs.getInt("quantita"));
+				dettagli.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return dettagli;
+	}
 	
 	public static DataSource getDs() {
 		return ds;

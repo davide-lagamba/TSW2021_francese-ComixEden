@@ -5,17 +5,22 @@
 <%@ page import="java.lang.*"%>
 <%
 	Utente user = (Utente) request.getSession().getAttribute("utente");
-
+    String research = (String) request.getParameter("research");
 if (user == null) {
 	response.sendRedirect("../login");
 }
 
 	Collection<?> dettagli = (Collection<?>) request.getAttribute("dettagli");
+	
+	if ((dettagli == null)&&(research!=null)) {
+		response.sendRedirect("../ordersad");
+		return;
+	}
 	if (dettagli == null) {
 		response.sendRedirect("../orders");
 		return;
 	}
-	
+
 	int id_ordine= (int) (request.getAttribute("id_ordine"));
 
 	Carrello cart = (Carrello) request.getAttribute("cart");
@@ -62,7 +67,11 @@ if (user == null) {
 				<td><%=bean.getPrezzoSingolo()%></td>
 				<td><%=bean.getIva()%></td>
 				<td><%=bean.getQuantita()%></td>
-				<td><form action="orders" method="post">
+				<td><%if(research==null) {%>
+				<form action="orders" method="post">
+				<%}else{ %>
+				<form action="ordersad" method="get">
+				<%} %>
 					<a href="product?id=<%=bean.getIdProdotto()%>">Dettagli</a>			
 				</form></td>
 			</tr>

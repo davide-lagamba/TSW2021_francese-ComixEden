@@ -1,5 +1,6 @@
 package model;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -180,7 +181,145 @@ public class OrdineDS {
 		}
 		return ordini;
 	}
+	public synchronized Collection<Ordine> doRetrieveAllByEmail(String email, String order) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<Ordine> ordini = new LinkedList<Ordine>();
+        
+		String selectSQL = "SELECT * FROM " + OrdineDS.TABLE_NAME +" join utente on utente.id_utente=ordine.id_utente"
+				+ " WHERE utente.email=?";
+		if (order != null && !order.equals("")) {
+			selectSQL += " ORDER BY " + order;
+		}
+		
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, email);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Ordine bean = new Ordine();
+				bean.setIdOrdine(rs.getInt("id_ordine"));
+				bean.setIdUtente(rs.getInt("id_utente"));
+				bean.setIdSpedizione(rs.getInt("id_spedizione"));
+				bean.setIdFatturazione(rs.getInt("id_fatturazione"));
+				bean.setIdPagamento(rs.getInt("id_pagamento"));
+				bean.setNote(rs.getString("note"));
+				bean.setCostoSpedizione(rs.getDouble("costo_spedizione"));
+				bean.setPrezzoTotale(rs.getDouble("prezzo_totale"));
+				bean.setQuantita(rs.getInt("quantita"));
+				bean.setData(rs.getDate("data"));
+				bean.setConsegnato(rs.getBoolean("consegnato"));
+				ordini.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return ordini;
+	}
+	public synchronized Collection<Ordine> doRetrieveAll(String order) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<Ordine> ordini = new LinkedList<Ordine>();
+
+		String selectSQL = "SELECT * FROM " + OrdineDS.TABLE_NAME;
+
+		if (order != null && !order.equals("")) {
+			selectSQL += " ORDER BY " + order;
+		}
+		
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Ordine bean = new Ordine();
+				bean.setIdOrdine(rs.getInt("id_ordine"));
+				bean.setIdUtente(rs.getInt("id_utente"));
+				bean.setIdSpedizione(rs.getInt("id_spedizione"));
+				bean.setIdFatturazione(rs.getInt("id_fatturazione"));
+				bean.setIdPagamento(rs.getInt("id_pagamento"));
+				bean.setNote(rs.getString("note"));
+				bean.setCostoSpedizione(rs.getDouble("costo_spedizione"));
+				bean.setPrezzoTotale(rs.getDouble("prezzo_totale"));
+				bean.setQuantita(rs.getInt("quantita"));
+				bean.setData(rs.getDate("data"));
+				bean.setConsegnato(rs.getBoolean("consegnato"));
+				ordini.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return ordini;
+	}
 	
+	public synchronized Collection<Ordine> doRetrieveAllByDate(String order,String inizio,String fine) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<Ordine> ordini = new LinkedList<Ordine>();
+
+		String selectSQL = "SELECT * FROM " + OrdineDS.TABLE_NAME + " WHERE data BETWEEN ? AND ?";
+
+		if (order != null && !order.equals("")) {
+			selectSQL += " ORDER BY " + order;
+		}
+		
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, inizio);
+			preparedStatement.setString(2, fine);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Ordine bean = new Ordine();
+				bean.setIdOrdine(rs.getInt("id_ordine"));
+				bean.setIdUtente(rs.getInt("id_utente"));
+				bean.setIdSpedizione(rs.getInt("id_spedizione"));
+				bean.setIdFatturazione(rs.getInt("id_fatturazione"));
+				bean.setIdPagamento(rs.getInt("id_pagamento"));
+				bean.setNote(rs.getString("note"));
+				bean.setCostoSpedizione(rs.getDouble("costo_spedizione"));
+				bean.setPrezzoTotale(rs.getDouble("prezzo_totale"));
+				bean.setQuantita(rs.getInt("quantita"));
+				bean.setData(rs.getDate("data"));
+				bean.setConsegnato(rs.getBoolean("consegnato"));
+				ordini.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return ordini;
+	}
 	
 	public synchronized int getNewId() throws SQLException {
 		Connection connection = null;
