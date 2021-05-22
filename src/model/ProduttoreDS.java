@@ -46,7 +46,6 @@ public class ProduttoreDS {
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -167,4 +166,88 @@ public class ProduttoreDS {
 	public static String getTableName() {
 		return TABLE_NAME;
 	}
+	
+	public synchronized int getNewId() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+
+		String selectSQL = "select max(id_produttore)  from "+ ProduttoreDS.TABLE_NAME;
+		int result=-1;
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+			result=rs.getInt(1);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return result;
+	}
+	
+	public synchronized Produttore doRetrieveByName(String nome) throws SQLException {
+
+		PreparedStatement preparedStatement = null;
+
+		Produttore bean = new Produttore();
+
+		String selectSQL = "SELECT * FROM " + ProduttoreDS.TABLE_NAME + " WHERE nome = ?";
+
+		try (Connection connection = ds.getConnection()){
+			
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, nome);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setId_produttore(rs.getInt("id_produttore"));
+				bean.setPartita_iva(rs.getString("partita_iva"));
+				bean.setNome(rs.getString("nome"));
+			}
+
+		
+		}
+		return bean;
+	}
+	
+	public synchronized void doSaveSenzaIva(Produttore producer) throws SQLException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertSQL = "INSERT INTO " + ProduttoreDS.TABLE_NAME
+				+ " (nome) VALUES (?)";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, producer.getNome());
+
+			preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+	}
+	
+	
 }

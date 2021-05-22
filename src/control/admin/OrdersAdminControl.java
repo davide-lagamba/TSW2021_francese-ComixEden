@@ -1,4 +1,4 @@
-package control;
+package control.admin;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.*;
 
-@WebServlet("/ordersad")
+@WebServlet("/admin/ordersad")
 public class OrdersAdminControl extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -27,7 +27,7 @@ public class OrdersAdminControl extends HttpServlet {
 		Utente user = (Utente) request.getSession().getAttribute("utente");
 		String research = (String) request.getParameter("research");
 		if ((user == null)||(!user.isAdmin())) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/login.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/nonAutenticato.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -54,7 +54,7 @@ public class OrdersAdminControl extends HttpServlet {
 				}
 			}
 	    	
-			RequestDispatcher dispatcherb = getServletContext().getRequestDispatcher("/pages/ordersearch.jsp");
+			RequestDispatcher dispatcherb = getServletContext().getRequestDispatcher("/pages/admin/ordersearch.jsp");
 			dispatcherb.forward(request, response);
 			return;
 		} 
@@ -62,15 +62,58 @@ public class OrdersAdminControl extends HttpServlet {
 	    {
 			String sort = request.getParameter("sort");
 			request.removeAttribute("orders");
+			request.setAttribute("research", research);
 			try {
 					request.setAttribute("orders", new OrdineDS().doRetrieveAll(sort));
 				}
 			 catch (SQLException e) {
 				System.out.println("Error:" + e.getMessage());
 			}
-			RequestDispatcher dispatcherd = getServletContext().getRequestDispatcher("/pages/ordersadmin.jsp");
+			RequestDispatcher dispatcherd = getServletContext().getRequestDispatcher("/pages/admin/ordersadmin.jsp");
 			dispatcherd.forward(request, response);
 			return;
+	    }
+	    
+	    if (research.equals("data"))
+	    {
+			String sort = request.getParameter("sort");
+			String i = (String) request.getParameter("inizio");
+			String f = (String) request.getParameter("fine");
+				
+				request.removeAttribute("orders");
+				request.setAttribute("research", research);
+				try {
+						request.setAttribute("orders", new OrdineDS().doRetrieveAllByDate(sort,i,f));
+						System.out.println(i.toString());						}
+				
+				 catch (SQLException e) {
+					System.out.println("Error:" + e.getMessage());
+				}
+				
+				RequestDispatcher dispatcherd = getServletContext().getRequestDispatcher("/pages/admin/ordersadmin.jsp");
+				dispatcherd.forward(request, response);
+				return;
+	    }
+	 
+	 if (research.equals("user"))
+	    {
+			String sort = request.getParameter("sort");
+			String email = request.getParameter("email");
+				request.removeAttribute("orders");
+				request.setAttribute("research", research);
+				try {
+						request.setAttribute("orders", new OrdineDS().doRetrieveAllByEmail(email,sort));
+					}
+				
+				 catch (SQLException e) {
+					System.out.println("Error:" + e.getMessage());
+				}
+				
+				RequestDispatcher dispatcherd = getServletContext().getRequestDispatcher("/pages/admin/ordersadmin.jsp");
+				dispatcherd.forward(request, response);
+				return;
+				
+		
 	    }
 	    
 }
@@ -79,49 +122,7 @@ public class OrdersAdminControl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String research = (String) request.getParameter("research");
-		
-		 if (research.equals("data"))
-		    {
-				String sort = request.getParameter("sort");
-				String i = (String) request.getParameter("inizio");
-				String f = (String) request.getParameter("fine");
-					
-					request.removeAttribute("orders");
-					
-					try {
-							request.setAttribute("orders", new OrdineDS().doRetrieveAllByDate(sort,i,f));
-							System.out.println(i.toString());						}
-					
-					 catch (SQLException e) {
-						System.out.println("Error:" + e.getMessage());
-					}
-					
-					RequestDispatcher dispatcherd = getServletContext().getRequestDispatcher("/pages/ordersadmin.jsp");
-					dispatcherd.forward(request, response);
-					return;
-		    }
-		 
-		 if (research.equals("user"))
-		    {
-				String sort = request.getParameter("sort");
-				String email = request.getParameter("email");
-					request.removeAttribute("orders");
-					
-					try {
-							request.setAttribute("orders", new OrdineDS().doRetrieveAllByEmail(email,sort));
-						}
-					
-					 catch (SQLException e) {
-						System.out.println("Error:" + e.getMessage());
-					}
-					
-					RequestDispatcher dispatcherd = getServletContext().getRequestDispatcher("/pages/ordersadmin.jsp");
-					dispatcherd.forward(request, response);
-					return;
-					
-			
-		    }
+		doGet(request, response);
 		
 	}
 

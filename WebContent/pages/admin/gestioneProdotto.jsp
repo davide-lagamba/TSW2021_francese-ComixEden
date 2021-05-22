@@ -2,7 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="model.*"%>
 <%@ page import="java.util.*"%>
-<%
+<%	
+	Utente user = (Utente) request.getSession().getAttribute("utente");		
+	
+	if (user == null || !user.isAdmin()) {
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/nonAutenticato.jsp");
+		dispatcher.forward(request, response);
+		return;
+	}
+	
 	Prodotto product = (Prodotto) request.getAttribute("product");
 
 	Carrello cart = (Carrello) request.getAttribute("cart");
@@ -14,15 +22,17 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="icon" href="./images/ComixEden.png">
+<link rel="icon" href="<%=getServletContext().getContextPath()%>/images/ComixEden.png">
 <link rel="stylesheet" type="text/css"
-	href="./style/productviewstyle.css">
-<title>Dettagli dell'articolo</title>
+	href="<%=getServletContext().getContextPath()%>/style/productviewstyle.css">
+	
+
+<title>Dettagli prodotto</title>
 </head>
 
 <body>
 
-	<%@ include file="../fragments/header.jsp"%>
+	<%@ include file="/fragments/header.jsp"%>
 
 	<div class="container">
 	
@@ -44,7 +54,7 @@
 							if (bean.isCopertina()) {
 				%>
 
-				<img src="images/<%=bean.getNome()%>" class="dettagliimg">
+				<img src="<%=getServletContext().getContextPath()%>/images/<%=bean.getNome()%>" class="dettagliimg">
 
 				<%
 					}
@@ -58,7 +68,7 @@
 							Immagine bean = (Immagine) it.next();
 							if (!bean.isCopertina()) {
 				%>
-				<img src="images/<%=bean.getNome()%>" class="dettagliimg">
+				<img src="<%=getServletContext().getContextPath()%>/images/<%=bean.getNome()%>" class="dettagliimg">
 			</div>
 			<%
 				}
@@ -104,24 +114,10 @@
 				<th>Sconto</th>
 				<td><%=Double.toString(product.getSconto())%>%</td>
 			</tr>
-	<%	if(product.getDisponibilita()>0) {%>
-			<tr>
-				<th colspan="2">
-					<form action="product" method="post">
-						<input id="quantita" type="number" name="quantita" min="1"
-							max="<%=product.getDisponibilita()%>">
-				</th>
-			</tr>
-		
-			<tr>
-				<th colspan="2"><input type="hidden" name="id"
-					value=<%=product.getId()%>> <input type="hidden"
-					name="page" value="dettagli"> <input type="submit"
-					name="action" value="Aggiungi al carrello"></input></a>
-					</form></th>
-			</tr>
-			
-			<%}
+
+
+
+			<%
 				int idCategoria = product.getIdCategoria();
 				Categoria cd = new CategoriaDS().doRetrieveByKey(idCategoria);
 				String categoria = cd.getNome();
@@ -172,7 +168,9 @@
 			</tr>
 
 		</table><%} %>
+		<br><br>
+		<a href="gestioneCatalogo?action=inserisci&id=<%=product.getId()%>">Modifica prodotto</a>
 	</div>
-	<%@ include file="../fragments/footer.html"%>
+	<%@ include file="/fragments/footer.html"%>
 </body>
 </html>

@@ -24,7 +24,7 @@ Carrello cart = (Carrello) request.getAttribute("cart");
 		<h2>Login</h2>
 		<form action="login" method="post">
 			Please enter your email <input type="text" name="email" required><br><br>
-			Please enter your password <input type="text" name="pw" required> <br><br>
+			Please enter your password <input type="password" name="pw" required> <br><br>
 			<input type="submit" value="login">
 			
 		<%if(request.getAttribute("error")!=null){

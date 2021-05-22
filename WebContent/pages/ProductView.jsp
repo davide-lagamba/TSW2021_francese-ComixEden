@@ -15,7 +15,6 @@
 	Carrello cart = (Carrello) request.getAttribute("cart");
 	
 	Utente user = (Utente) request.getSession().getAttribute("utente");		
-	
 %>
 
 <!DOCTYPE html>

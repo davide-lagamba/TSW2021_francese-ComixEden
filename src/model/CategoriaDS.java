@@ -34,7 +34,7 @@ public class CategoriaDS {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
+		
 		String insertSQL = "INSERT INTO " + CategoriaDS.TABLE_NAME + " (NOME) VALUES (?)";
 
 		try {
@@ -43,7 +43,6 @@ public class CategoriaDS {
 			preparedStatement.setString(1, categoria.getNome());
 			preparedStatement.executeUpdate();
 
-			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -149,6 +148,68 @@ public class CategoriaDS {
 			}
 		}
 		return categorie;
+	}
+	
+	public synchronized int getNewId() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+
+		String selectSQL = "select max(id_categoria)  from "+ CategoriaDS.TABLE_NAME;
+		int result=-1;
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+			result=rs.getInt(1);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return result;
+	}
+	
+	public synchronized Categoria doRetrieveByName(String nome) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Categoria bean = new Categoria();
+
+		String selectSQL = "SELECT * FROM " + CategoriaDS.TABLE_NAME + " WHERE nome = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, nome);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setId(rs.getInt("id_categoria"));
+				bean.setNome(rs.getString("nome"));
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return bean;
 	}
 
 }

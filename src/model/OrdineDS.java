@@ -39,7 +39,6 @@ public class OrdineDS {
 
 		try {
 			connection = ds.getConnection();
-			connection.setAutoCommit(true);
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, ordine.getIdUtente());
 			preparedStatement.setInt(2, ordine.getIdSpedizione());
@@ -54,7 +53,6 @@ public class OrdineDS {
 
 			preparedStatement.executeUpdate();
 
-		//	connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)

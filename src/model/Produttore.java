@@ -7,11 +7,11 @@ public class Produttore implements Serializable{
 	String nome;
 
     public Produttore() {
-        id_produttore = 1;
+        id_produttore = -1;
         partita_iva = "";
         nome = "";
     }
-
+    
     public Produttore(int id_produttore, String partita_iva, String nome) {
         this.id_produttore = id_produttore;
         this.partita_iva = partita_iva;

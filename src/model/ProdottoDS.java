@@ -41,7 +41,7 @@ public class ProdottoDS {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProdottoDS.TABLE_NAME
-				+ " (prezzo_base, descrizione, stato, peso, pagine, autori, lingua, data, disponibilita, sconto, colore_stampa, iva, score_medio, id_produttore, id_categoria, nome) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ " (prezzo_base, descrizione, stato, peso, pagine, autori, lingua, data, disponibilita, sconto, colore_stampa, iva, id_produttore, id_categoria, nome) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -65,23 +65,69 @@ public class ProdottoDS {
 			preparedStatement.setInt(10, product.getSconto());
 			preparedStatement.setString(11, product.getColoreStampa());
 			preparedStatement.setDouble(12, product.getIva());
-			if(product.getScoreMedio()==-1) {
-				preparedStatement.setNull(13, Types.DOUBLE);
-			}else {
-			preparedStatement.setDouble(13, product.getScoreMedio());}
 			if(product.getIdProduttore()==-1) {
-				preparedStatement.setNull(14, Types.INTEGER);
+				preparedStatement.setNull(13, Types.INTEGER);
 			}else {
-			preparedStatement.setInt(14, product.getIdProduttore());}
+			preparedStatement.setInt(13, product.getIdProduttore());}
 			if(product.getIdCategoria()==-1) {
-				preparedStatement.setNull(15, Types.INTEGER);
+				preparedStatement.setNull(14, Types.INTEGER);
 			}
-			preparedStatement.setInt(15, product.getIdCategoria());
-			preparedStatement.setString(16, product.getNome());
+			preparedStatement.setInt(14, product.getIdCategoria());
+			preparedStatement.setString(15, product.getNome());
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+	}
+	
+	public synchronized void doUpdate(Prodotto product) throws SQLException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertSQL = "update "+ProdottoDS.TABLE_NAME+" set prezzo_base=?, descrizione=?, stato=?, peso=?, pagine=?, autori=?, lingua=?, disponibilita=?, sconto=?, colore_stampa=?, iva=?, id_produttore=?, id_categoria=?, nome=? where id_prodotto=?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setDouble(1, product.getPrezzoBase());
+			preparedStatement.setString(2, product.getDescrizione());
+			preparedStatement.setString(3, product.getStato());
+			preparedStatement.setDouble(4, product.getPeso());
+			if(product.getPagine()==0) {
+				preparedStatement.setNull(5, Types.INTEGER);
+			}else {
+			preparedStatement.setInt(5, product.getPagine());}
+			if(product.getAutori().equals("")) {
+				preparedStatement.setNull(6, Types.VARCHAR);
+			}else {
+			preparedStatement.setString(6, product.getAutori());}
+			preparedStatement.setString(7, product.getLingua());
+	
+			preparedStatement.setInt(8, product.getDisponibilita());
+			preparedStatement.setInt(9, product.getSconto());
+			preparedStatement.setString(10, product.getColoreStampa());
+			preparedStatement.setDouble(11, product.getIva());
+			if(product.getIdProduttore()==-1) {
+				preparedStatement.setNull(12, Types.INTEGER);
+			}else {
+			preparedStatement.setInt(12, product.getIdProduttore());}
+			if(product.getIdCategoria()==-1) {
+				preparedStatement.setNull(13, Types.INTEGER);
+			}
+			preparedStatement.setInt(13, product.getIdCategoria());
+			preparedStatement.setString(14, product.getNome());
+			preparedStatement.setInt(15, product.getId());
+			preparedStatement.executeUpdate();
+
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -308,5 +354,35 @@ public class ProdottoDS {
 
 	public static String getTableName() {
 		return TABLE_NAME;
+	}
+	
+	public synchronized int getNewId() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+
+		String selectSQL = "select max(id_prodotto)  from "+ ProdottoDS.TABLE_NAME;
+		int result=-1;
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+			result=rs.getInt(1);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return result;
 	}
 }

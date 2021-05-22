@@ -34,13 +34,13 @@ if (user == null) {
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="icon" href="./images/ComixEden.png">
 <link rel="stylesheet" type="text/css"
-	href="./style/productviewstyle.css">
+	href="<%=getServletContext().getContextPath() %>/style/productviewstyle.css">
 <title>Dettaglio ordine</title>
 </head>
 
 <body>
 
-	<%@ include file="../fragments/header.jsp"%>
+	<%@ include file="/fragments/header.jsp"%>
 	<div class="container">
 		<h2>Dettaglio Ordine</h2>
 		
@@ -72,7 +72,7 @@ if (user == null) {
 				<%}else{ %>
 				<form action="ordersad" method="get">
 				<%} %>
-					<a href="product?id=<%=bean.getIdProdotto()%>">Dettagli</a>			
+					<a href="<%=getServletContext().getContextPath() %>/product?id=<%=bean.getIdProdotto()%>">Dettagli</a>			
 				</form></td>
 			</tr>
 			<%
@@ -92,5 +92,5 @@ if (user == null) {
 
 
 </body>
-<%@ include file="../fragments/footer.html"%>
+<%@ include file="/fragments/footer.html"%>
 </html>

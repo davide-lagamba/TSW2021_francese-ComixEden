@@ -38,6 +38,7 @@ public class CheckoutControl extends HttpServlet {
 		if (user == null) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login");
 			dispatcher.forward(request, response);
+			return;
 		}
 
 		Carrello cart = (Carrello) request.getSession().getAttribute("cart");
@@ -92,7 +93,7 @@ public class CheckoutControl extends HttpServlet {
 		request.setAttribute("cart", nuovo);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/product");
 		dispatcher.forward(request, response);
-
+		return;
 	}
 
 }

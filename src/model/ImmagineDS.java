@@ -49,7 +49,6 @@ public class ImmagineDS {
 		
 			preparedStatement.executeUpdate();
 
-			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -76,12 +75,13 @@ public class ImmagineDS {
 			preparedStatement.setInt(1, code);
 
 			ResultSet rs = preparedStatement.executeQuery();
-
+			int i=0;
 			while (rs.next()) {
+				if(i==0) {
 				bean.setNome(rs.getString("nome"));
 				bean.setIdProdotto(rs.getInt("id_prodotto"));
 				bean.setCopertina(rs.getBoolean("copertina"));
-				
+				i++;}
 				
 			}
 

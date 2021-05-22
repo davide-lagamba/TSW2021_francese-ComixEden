@@ -40,7 +40,6 @@ public class DettaglioOrdineDS {
 
 		try {
 			connection = ds.getConnection();
-			connection.setAutoCommit(true);
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, dettaglio.getIdProdotto());
 			preparedStatement.setInt(2, dettaglio.getIdOrdine());

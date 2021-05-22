@@ -102,6 +102,7 @@ public class ProductControl extends HttpServlet {
 		}
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/ProductView.jsp");
 		dispatcher.forward(request, response);
+		return;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
