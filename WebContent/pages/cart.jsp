@@ -21,17 +21,19 @@
 <body>
 	<%@ include file="../fragments/header.jsp"%>
 	<div class="container">
-		<h2>Carrello</h2>
 		<table border="1">
+			<caption>Carrello</caption>
+			<thead>
 			<tr>
-				<th>ID</th>
-				<th>Nome</th>
-				<th>Descrizione</th>
-				<th>Prezzo totale</th>
-				<th>Quantità</th>
-				<th>Immagine</th>
-				<th>Azione</th>
+				<th scope="col">ID</th>
+				<th scope="col">Nome</th>
+				<th scope="col">Descrizione</th>
+				<th scope="col">Prezzo totale</th>
+				<th scope="col">Quantità</th>
+				<th scope="col">Immagine</th>
+				<th scope="col">Azione</th>
 			</tr>
+			</thead>
 
 			<%
 				if (cart != null && cart.getQuantity() != 0) {
@@ -42,11 +44,11 @@
 			%>
 
 			<tr>
-				<td><%=det.getItemId()%></td>
-				<td><%=det.getNome()%></td>
-				<td><%=det.getDescrizione()%></td>
-				<td><%=det.getPrezzoTotString()%></td>
-				<td>
+				<td data-label="ID"><%=det.getItemId()%></td>
+				<td data-label="Nome"><%=det.getNome()%></td>
+				<td data-label="Descrizione"><%=det.getDescrizione()%></td>
+				<td data-label="Prezzo totale"><%=det.getPrezzoTotString()%></td>
+				<td data-label="Quantità">
 					<form action="cartView">
 						<input id="quantita" type="number" name="quantita"
 							value="<%=det.getNumItems()%>" min="1"

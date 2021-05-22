@@ -4,19 +4,19 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.lang.*"%>
 <%
-	Utente user = (Utente) request.getSession().getAttribute("utente");
+Utente user = (Utente) request.getSession().getAttribute("utente");
 
 if (user == null) {
 	response.sendRedirect("../login");
 }
 
-	Collection<?> ordini = (Collection<?>) request.getAttribute("orders");
-	if (ordini == null) {
-		response.sendRedirect("../orders");
-		return;
-	}
+Collection<?> ordini = (Collection<?>) request.getAttribute("orders");
+if (ordini == null) {
+	response.sendRedirect("../orders");
+	return;
+}
 
-	Carrello cart = (Carrello) request.getAttribute("cart");
+Carrello cart = (Carrello) request.getAttribute("cart");
 %>
 
 <!DOCTYPE html>
@@ -35,44 +35,46 @@ if (user == null) {
 
 	<%@ include file="../fragments/header.jsp"%>
 	<div class="container">
-		<h2>Ordini</h2>
-		
+
 		<table border="1">
-			<tr>
-				<th><a href="orders?sort=id_ordine">ID</a></th>
-				<th><a href="orders?sort=id_spedizione">Indirizzo spedizione</a></th>
-				<th><a href="orders?sort=prezzo_totale">Prezzo totale</a></th>
-				<th><a href="orders?sort=quantita">Quantità</a></th>
-				<th><a href="orders?sort=data">Data</a></th>
-				<th><a href="orders?sort=note">Note</a></th>
-				<th>Azione</th>
-			</tr>
+			<caption>Ordini</caption>
+			<thead>
+				<tr>
+					<th scope="col"><a href="orders?sort=id_ordine">ID</a></th>
+					<th scope="col"><a href="orders?sort=id_spedizione">Indirizzo spedizione</a></th>
+					<th scope="col"><a href="orders?sort=prezzo_totale">Prezzo totale</a></th>
+					<th scope="col"><a href="orders?sort=quantita">Quantità</a></th>
+					<th scope="col"><a href="orders?sort=data">Data</a></th>
+					<th scope="col" class="Note"><a href="orders?sort=note">Note</a></th>
+					<th>Azione</th>
+				</tr>
+			</thead>
 			<%
-				if (ordini != null && ordini.size() != 0) {
-					Iterator<?> it = ordini.iterator();
-					while (it.hasNext()) {
-						Ordine bean = (Ordine) it.next();
+			if (ordini != null && ordini.size() != 0) {
+				Iterator<?> it = ordini.iterator();
+				while (it.hasNext()) {
+					Ordine bean = (Ordine) it.next();
 			%>
 			<tr>
-				<td><%=bean.getIdOrdine()%></td>
-				<td><%=bean.getIdSpedizione()%></td>
-				<td><%=bean.getPrezzoTotaleString()%></td>
-				<td><%=bean.getQuantita()%></td>
-				<td><%=bean.getData()%></td>
-				<td><%=bean.getNote()%></td>
+				<td data-label="ID"><%=bean.getIdOrdine()%></td>
+				<td data-label="Indirizzo spedizione"><%=bean.getIdSpedizione()%></td>
+				<td data-label="Prezzo totale"><%=bean.getPrezzoTotaleString()%></td>
+				<td data-label="Quantità"><%=bean.getQuantita()%></td>
+				<td data-label="Data"><%=bean.getData()%></td>
+				<td data-label="Note" class="Note"><%=bean.getNote()%></td>
 				<td><form action="orders" method="post">
-					<a href="orders?id=<%=bean.getIdOrdine()%>">Dettagli</a>			
-				</form></td>
+						<a href="orders?id=<%=bean.getIdOrdine()%>">Dettagli</a>
+					</form></td>
 			</tr>
 			<%
-				}
-				} else {
+			}
+			} else {
 			%>
 			<tr>
 				<td colspan="6">No orders available</td>
 			</tr>
 			<%
-				}
+			}
 			%>
 		</table>
 

@@ -38,59 +38,38 @@
 <body>
 
 	<%@ include file="/fragments/header.jsp"%>
-	<div class="container">
-		<h2>Prodotti</h2>
-		<br><br>
-		<p><a href="gestioneCatalogo?action=inserisci">Aggiungi prodotto</a></p><br><br>
-		<table border="1">
-			<tr>
-				<th><a href="gestioneCatalogo?sort=id_prodotto">ID</a></th>
-				<th><a href="gestioneCatalogo?sort=nome">Nome</a></th>
-				<th><a href="gestioneCatalogo?sort=descrizione">Descrizione</a></th>
-				<th><a href="gestioneCatalogo?sort=autori">Autori</a></th>
-				<th><a href="gestioneCatalogo?sort=disponibilita">Disponibilità</a></th>
-				<th><a href="gestioneCatalogo?sort=PrezzoTot">Prezzo totale</a></th>
-				<th>Immagine</th>
-				<th>Azione</th>
-			</tr>
-			<%
-				if (products != null && products.size() != 0) {
-					Iterator<?> it = products.iterator();
-					while (it.hasNext()) {
-						Prodotto bean = (Prodotto) it.next();
+	<h3><a href="gestioneCatalogo?action=inserisci">Aggiungi prodotto</a></h3><br><br>
+	<h2>Prodotti</h2>
+	<br><br>
+		
+	<div class="containerProdotti">
+		<%
+		if (products != null && products.size() != 0) {
+			Iterator<?> it = products.iterator();
+			while (it.hasNext()) {
+				Prodotto bean = (Prodotto) it.next();
 			%>
-			<tr>
-				<td><%=bean.getId()%></td>
-				<td><%=bean.getNome()%></td>
-				<td><%=bean.getDescrizione()%></td>
-				<td><%=bean.getAutori()%></td>
-				<td><%=bean.getDisponibilita()%></td>
-				<td><%=bean.getPrezzoTotString()%></td>				
-				<td><div><img src="<%=getServletContext().getContextPath()%>/images/<%=(new ImmagineDS()).doRetrieveByKey(bean.getId()).getNome()%>" alt="<%=bean.getNome()%>"></div>
-				</td>
-				
-				<td>
-					<a href="gestioneCatalogo?id=<%=bean.getId()%>">Dettagli</a>
-					<form action="gestioneCatalogo" method="post">
+			<div class="card">  
+				<p>ID: <%=bean.getId()%></p>
+				<p><%=bean.getNome()%></p>
+				<p><%=bean.getDescrizione()%></p>
+				<div>
+					<img src="<%=getServletContext().getContextPath()%>/images/<%=(new ImmagineDS()).doRetrieveByKey(bean.getId()).getNome()%>" alt="<%=bean.getNome()%>">
+				</div>
+				<p>Autore: <%=bean.getAutori()%></p>
+				<p><a href="gestioneCatalogo?id=<%=bean.getId()%>">Dettagli</a></p>
+				<p>Disponibilità:<%=bean.getDisponibilita()%></p>
+				<form action="gestioneCatalogo" method="post">
 					<input type="hidden" name="id" value=<%=bean.getId()%>>
 					<input type="submit" name="action" value="Rimuovi">
-				</form></td>
-			</tr>
-			<%
-				}
-				} else {
-			%>
-			<tr>
-				<td colspan="6">No products available</td>
-			</tr>
-			<%
-				}
-			%>
-		</table>
-
-
+				</form>
+				<p class="price"><%=bean.getPrezzoTotString()%></p>
+				</div>
+			<%}
+		} else {%>
+			<h2>No products available</h2>
+		<%}%>
 	</div>
-
 
 </body>
 <%@ include file="/fragments/footer.html"%>

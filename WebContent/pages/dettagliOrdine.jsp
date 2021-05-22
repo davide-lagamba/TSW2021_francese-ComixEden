@@ -39,19 +39,19 @@ if (user == null) {
 </head>
 
 <body>
-
 	<%@ include file="/fragments/header.jsp"%>
+	
 	<div class="container">
-		<h2>Dettaglio Ordine</h2>
 		
 		<table border="1">
+		<caption>Dettaglio Ordine</caption>
 			<tr>
-				<th><a href="orders?id=<%=id_ordine %>&sort=id_dettaglio">ID</a></th>
-				<th><a href="orders?id=<%=id_ordine %>&sort=nome">Nome</a></th>
-				<th><a href="orders?id=<%=id_ordine %>&sort=prezzo_tot">Prezzo totale</a></th>
-				<th><a href="orders?id=<%=id_ordine %>&sort=prezzo_singolo">Prezzo singolo</a></th>
-				<th><a href="orders?id=<%=id_ordine %>&sort=iva">Iva</a></th>
-				<th><a href="orders?id=<%=id_ordine %>&sort=quantita">Quantità</a></th>
+				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=id_dettaglio">ID</a></th>
+				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=nome">Nome</a></th>
+				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=prezzo_tot">Prezzo totale</a></th>
+				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=prezzo_singolo">Prezzo singolo</a></th>
+				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=iva">Iva</a></th>
+				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=quantita">Quantità</a></th>
 				<th>Azione</th>
 			</tr>
 			<%
@@ -61,12 +61,12 @@ if (user == null) {
 						DettaglioOrdine bean = (DettaglioOrdine) it.next();
 			%>
 			<tr>
-				<td><%=bean.getIdDettaglio()%></td>
-				<td><%=bean.getNomeDettaglio()%></td>
-				<td><%=bean.getPrezzoTotaleString()%></td>
-				<td><%=bean.getPrezzoSingolo()%></td>
-				<td><%=bean.getIva()%></td>
-				<td><%=bean.getQuantita()%></td>
+				<td data-label="ID"><%=bean.getIdDettaglio()%></td>
+				<td data-label="Nome"><%=bean.getNomeDettaglio()%></td>
+				<td data-label="Prezzo totale"><%=bean.getPrezzoTotaleString()%></td>
+				<td data-label="Prezzo singolo"><%=bean.getPrezzoSingolo()%></td>
+				<td data-label="Iva"><%=bean.getIva()%></td>
+				<td data-label="Quantità"><%=bean.getQuantita()%></td>
 				<td><%if(research==null) {%>
 				<form action="orders" method="post">
 				<%}else{ %>

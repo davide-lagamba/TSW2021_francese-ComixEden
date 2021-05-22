@@ -36,18 +36,20 @@ if (user == null || !user.isAdmin()) {
 
 	<%@ include file="/fragments/header.jsp"%>
 	<div class="container">
-		<h2>Ordini</h2>
 		
 		<table border="1">
+		<caption>Ordini</caption>
+		<thead>
 			<tr>
-				<th><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=id_ordine<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">ID</a></th>
-				<th><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=id_spedizione<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">Indirizzo spedizione</a></th>
-				<th><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=prezzo_totale<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">Prezzo totale</a></th>
-				<th><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=quantita<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">Quantità</a></th>
-				<th><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=data<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">Data</a></th>
-				<th><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=note<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">Note</a></th>
+				<th scope="col"><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=id_ordine<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">ID</a></th>
+				<th scope="col"><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=id_spedizione<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">Indirizzo spedizione</a></th>
+				<th scope="col"><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=prezzo_totale<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">Prezzo totale</a></th>
+				<th scope="col"><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=quantita<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">Quantità</a></th>
+				<th scope="col"><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=data<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">Data</a></th>
+				<th scope="col" class="Note"><a href="ordersad?research=<%=request.getAttribute("research") %>&sort=note<%if(request.getParameter("email")!=null && !request.getParameter("email").equals("")){%><%="&email="+request.getParameter("email")%><%}if(request.getParameter("inizio")!=null && !request.getParameter("inizio").equals("")){%><%="&inizio="+request.getParameter("inizio")+"&fine="+request.getParameter("fine")%><%}%>">Note</a></th>
 				<th>Azione</th>
 			</tr>
+		</thead>	
 			<%
 				if (ordini != null && ordini.size() != 0) {
 					Iterator<?> it = ordini.iterator();
@@ -55,12 +57,12 @@ if (user == null || !user.isAdmin()) {
 						Ordine bean = (Ordine) it.next();
 			%>
 			<tr>
-				<td><%=bean.getIdOrdine()%></td>
-				<td><%=bean.getIdSpedizione()%></td>
-				<td><%=bean.getPrezzoTotaleString()%></td>
-				<td><%=bean.getQuantita()%></td>
-				<td><%=bean.getData()%></td>
-				<td><%=bean.getNote()%></td>
+				<td data-label="ID"><%=bean.getIdOrdine()%></td>
+				<td data-label="Indirizzo spedizione"><%=bean.getIdSpedizione()%></td>
+				<td data-label="Prezzo totale"><%=bean.getPrezzoTotaleString()%></td>
+				<td data-label="Quantità"><%=bean.getQuantita()%></td>
+				<td data-label="Data"><%=bean.getData()%></td>
+				<td data-label="Note" class="Note"> <span style="text-alling:right"><%=bean.getNote()%></span></td>
 				<td><form action="ordersad" method="get">
 					<a href="ordersad?id=<%=bean.getIdOrdine()%>">Dettagli</a>			
 				</form></td>
@@ -70,7 +72,7 @@ if (user == null || !user.isAdmin()) {
 				} else {
 			%>
 			<tr>
-				<td colspan="6">No orders available</td>
+				<td colspan="7">No orders available</td>
 			</tr>
 			<%
 				}

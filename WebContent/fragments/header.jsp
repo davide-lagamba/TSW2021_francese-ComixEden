@@ -3,22 +3,13 @@
 <%@ page import="model.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.lang.*"%>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="<%=getServletContext().getContextPath()%>/style/headerstyle.css">
 
-</head>
-<div class="containernav">
-	<div class="left">
-		<a href="<%=getServletContext().getContextPath()%>/pages/ProductView.jsp"> <img
-			src="<%=getServletContext().getContextPath()%>/images/ComixEden.png" alt="logo" id="logo"></a>
-			<a href="<%=getServletContext().getContextPath()%>/product" class="catalog">Catalogo</a>
+<div class="containernav" id="myNav">
+	<a href="<%=getServletContext().getContextPath()%>/pages/ProductView.jsp"> 
+	<img src="<%=getServletContext().getContextPath()%>/images/ComixEden.png" alt="logo" id="logo"></a>
+	<a href="<%=getServletContext().getContextPath()%>/product" class="catalog">Catalogo</a>
 			
 		
-	</div>
-	
-	<div class="push">
 	<%if(request.getSession().getAttribute("utente") == null){ %>
 		<a href="login" class="catalog" >LogIn</a> <%
 	}else{ %>
@@ -31,6 +22,16 @@
 		<%} %>
 		<a href="<%=getServletContext().getContextPath()%>/cartView"  class="catalog">Carrello <%if(request.getSession().getAttribute("cart")!=null){ %>(<%=((Carrello) request.getSession().getAttribute("cart")).getQuantity()%>)<%} %>
 		</a>
-	</div>
+	<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
-</html>
+
+<script>
+	function myFunction() {
+		var x = document.getElementById("myNav");
+		if (x.className === "containernav") {
+			x.className += " responsive";
+		} else {
+			x.className = "containernav";
+		}
+	}
+</script>

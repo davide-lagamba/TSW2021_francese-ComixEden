@@ -41,11 +41,8 @@
 		<p>Il prodotto cercato non è presente in catalogo!</p>
 		<p>Potrebbe essere stato cancellato o non essere mai esistito</p><%}else{ %>
 		<h2><%=product.getNome()%></h2>
-
-		<table border="1">
-
-				
-				<%
+		<div class="containerImgDtl">
+		<%
 					Collection<Immagine> img = (new ImmagineDS()).doRetrieveAll(product.getId());
 					if (img != null && img.size() != 0) {
 						Iterator<?> it = img.iterator();
@@ -69,102 +66,100 @@
 							if (!bean.isCopertina()) {
 				%>
 				<img src="<%=getServletContext().getContextPath()%>/images/<%=bean.getNome()%>" class="dettagliimg">
-			</div>
-			<%
+					<%}
 				}
-					}
-				}
-			%>
-			<th>Nome</th>
-			<td><%=product.getNome()%></td>
+			}%>
+		</div>
+
+		<table border="1" class="dettagli">
+			<tr>
+			<th scope="row">Nome</th>
+			<td data-label="Nome"><%=product.getNome()%></td>
 			</tr>
 			<tr>
-				<th>Descrizione</th>
-				<td><%=product.getDescrizione()%></td>
+				<th scope="row">Descrizione</th>
+				<td data-label="Descrizione"><%=product.getDescrizione()%></td>
 			</tr>
 			<tr>
-				<th>Score</th>
-				<td>
+				<th scope="row">Score</th>
+				<td data-label="Score">
 					<%
-						String score = "" + product.getScoreMedio();
-						if (score.equals("-1.0")) {
-							score = "N/A";
-						}
+					String score = "" + product.getScoreMedio();
+					if (score.equals("-1.0")) {
+						score = "N/A";
+					}
 					%> <%=score%></td>
 			</tr>
 
 			<tr>
-				<th>Stato</th>
-				<td><%=product.getStato()%></td>
+				<th scope="row">Stato</th>
+				<td data-label="Stato"><%=product.getStato()%></td>
 			</tr>
 			<tr>
-				<th>Disponibilità</th>
-				<td><%=product.getDisponibilita()%></td>
+				<th scope="row">Disponibilità</th>
+				<td data-label="Disponibilità"><%=product.getDisponibilita()%></td>
 			</tr>
 
 			<tr>
-				<th>Prezzo</th>
+				<th scope="row">Prezzo</th>
 				<%
-					String prezzo = product.getPrezzoTotString();
+				String prezzo = product.getPrezzoTotString();
 				%>
-				<td><%=prezzo%></td>
+				<td data-label="Prezzo"><%=prezzo%></td>
 			</tr>
 
 			<tr>
-				<th>Sconto</th>
-				<td><%=Double.toString(product.getSconto())%>%</td>
+				<th scope="row">Sconto</th>
+				<td data-label="Sconto"><%=Double.toString(product.getSconto())%>%</td>
 			</tr>
-
-
 
 			<%
 				int idCategoria = product.getIdCategoria();
 				Categoria cd = new CategoriaDS().doRetrieveByKey(idCategoria);
 				String categoria = cd.getNome();
 			%>
-
 			<tr>
-				<th>Categoria</th>
-				<td><%=categoria%></td>
+				<th scope="row">Categoria</th>
+				<td data-label="Categoria"><%=categoria%></td>
 			</tr>
 
 			<%
-				int idProduttore = product.getIdProduttore();
-				Produttore p = new ProduttoreDS().doRetrieveByKey(idProduttore);
-				String nomeProduttore = p.getNome();
+			int idProduttore = product.getIdProduttore();
+			Produttore p = new ProduttoreDS().doRetrieveByKey(idProduttore);
+			String nomeProduttore = p.getNome();
 			%>
 
 			<tr>
-				<th>Produttore</th>
-				<td><%=nomeProduttore%></td>
+				<th scope="row">Produttore</th>
+				<td data-label="Produttore"><%=nomeProduttore%></td>
 			</tr>
 
 			<tr>
-				<th>Colore</th>
-				<td><%=product.getColoreStampa()%></td>
+				<th scope="row">Colore</th>
+				<td data-label="Colore"><%=product.getColoreStampa()%></td>
 			</tr>
 
 			<tr>
-				<th>Autori</th>
-				<td><%=product.getAutori()%></td>
+				<th scope="row">Autori</th>
+				<td data-label="Autori"><%=product.getAutori()%></td>
 			</tr>
 
 			<tr>
-				<th>Data pubblicazione</th>
-				<td><%=product.getData().toString()%></td>
+				<th scope="row">Data pubblicazione</th>
+				<td data-label="Data pubblicazione"><%=product.getData().toString()%></td>
 			</tr>
 
 			<tr>
-				<th>Peso</th>
-				<td><%=product.getPeso()%>g</td>
+				<th scope="row">Peso</th>
+				<td data-label="Peso"><%=product.getPeso()%>g</td>
 			</tr>
 			<tr>
-				<th>Pagine</th>
-				<td><%=product.getPagine()%></td>
+				<th scope="row">Pagine</th>
+				<td data-label="Pagine"><%=product.getPagine()%></td>
 			</tr>
 			<tr>
-				<th>Lingua</th>
-				<td><%=product.getLingua()%></td>
+				<th scope="row">Lingua</th>
+				<td data-label="Lingua"><%=product.getLingua()%></td>
 			</tr>
 
 		</table><%} %>
