@@ -3,7 +3,9 @@
 <%@ page import="model.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.lang.*"%>
-
+<head>
+<link rel="stylesheet" href="./style/headerstyle.css">
+</head>
 <div class="containernav" id="myNav">
 	<a href="<%=getServletContext().getContextPath()%>/pages/ProductView.jsp"> 
 	<img src="<%=getServletContext().getContextPath()%>/images/ComixEden.png" alt="logo" id="logo"></a>

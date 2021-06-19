@@ -11,7 +11,7 @@ private static final long serialVersionUID = 1L;
 	private int idSpedizione;
 	private int idFatturazione;
 	private String note;
-	private int idPagamento;
+	private String idPagamento;
 	private double costoSpedizione;
 	private double prezzoTotale;
 	private int quantita;
@@ -33,7 +33,7 @@ private static final long serialVersionUID = 1L;
 	public void setNote(String note) {
 		this.note=note;
 	}
-	public void setIdPagamento(int idPagamento) {
+	public void setIdPagamento(String idPagamento) {
 		this.idPagamento=idPagamento;
 	}
 	public void setCostoSpedizione(double costoSpedizione) {
@@ -66,7 +66,7 @@ private static final long serialVersionUID = 1L;
 	public String getNote() {
 		return note;
 	}
-	public int getIdPagamento() {
+	public String getIdPagamento() {
 		return idPagamento;
 	}
 	public double getCostoSpedizione() {
@@ -77,7 +77,7 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	public String getPrezzoTotaleString() {
-		  return String.format("%.2f", getPrezzoTotale()) + "€";
+		  return String.format("%.2f", getPrezzoTotale()) + "ï¿½";
 	}
 	public int getQuantita() {
 		return quantita;

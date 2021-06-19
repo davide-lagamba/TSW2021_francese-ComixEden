@@ -39,12 +39,13 @@ public class OrdineDS {
 
 		try {
 			connection = ds.getConnection();
+			connection.setAutoCommit(true);
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, ordine.getIdUtente());
 			preparedStatement.setInt(2, ordine.getIdSpedizione());
 			preparedStatement.setInt(3, ordine.getIdFatturazione());
 			preparedStatement.setString(4, ordine.getNote());
-			preparedStatement.setInt(5, ordine.getIdPagamento());
+			preparedStatement.setString(5, ordine.getIdPagamento());
 			preparedStatement.setDouble(6, ordine.getCostoSpedizione());
 			preparedStatement.setDouble(7, ordine.getPrezzoTotale());
 			preparedStatement.setInt(8, ordine.getQuantita());
@@ -53,6 +54,7 @@ public class OrdineDS {
 
 			preparedStatement.executeUpdate();
 
+		//	connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -87,7 +89,7 @@ public class OrdineDS {
 				bean.setCostoSpedizione(rs.getDouble("costo_spedizione"));
 				bean.setData(rs.getDate("data"));
 				bean.setIdFatturazione(rs.getInt("id_categoria"));
-				bean.setIdPagamento(rs.getInt("id_pagamento"));
+				bean.setIdPagamento(rs.getString("id_pagamento"));
 				bean.setIdSpedizione(rs.getInt("id_spedizione"));
 				bean.setIdUtente(rs.getInt("id_utente"));
 				bean.setNote(rs.getString("note"));
@@ -158,7 +160,7 @@ public class OrdineDS {
 				bean.setIdUtente(rs.getInt("id_utente"));
 				bean.setIdSpedizione(rs.getInt("id_spedizione"));
 				bean.setIdFatturazione(rs.getInt("id_fatturazione"));
-				bean.setIdPagamento(rs.getInt("id_pagamento"));
+				bean.setIdPagamento(rs.getString("id_pagamento"));
 				bean.setNote(rs.getString("note"));
 				bean.setCostoSpedizione(rs.getDouble("costo_spedizione"));
 				bean.setPrezzoTotale(rs.getDouble("prezzo_totale"));
@@ -204,7 +206,7 @@ public class OrdineDS {
 				bean.setIdUtente(rs.getInt("id_utente"));
 				bean.setIdSpedizione(rs.getInt("id_spedizione"));
 				bean.setIdFatturazione(rs.getInt("id_fatturazione"));
-				bean.setIdPagamento(rs.getInt("id_pagamento"));
+				bean.setIdPagamento(rs.getString("id_pagamento"));
 				bean.setNote(rs.getString("note"));
 				bean.setCostoSpedizione(rs.getDouble("costo_spedizione"));
 				bean.setPrezzoTotale(rs.getDouble("prezzo_totale"));
@@ -249,7 +251,7 @@ public class OrdineDS {
 				bean.setIdUtente(rs.getInt("id_utente"));
 				bean.setIdSpedizione(rs.getInt("id_spedizione"));
 				bean.setIdFatturazione(rs.getInt("id_fatturazione"));
-				bean.setIdPagamento(rs.getInt("id_pagamento"));
+				bean.setIdPagamento(rs.getString("id_pagamento"));
 				bean.setNote(rs.getString("note"));
 				bean.setCostoSpedizione(rs.getDouble("costo_spedizione"));
 				bean.setPrezzoTotale(rs.getDouble("prezzo_totale"));
@@ -297,7 +299,7 @@ public class OrdineDS {
 				bean.setIdUtente(rs.getInt("id_utente"));
 				bean.setIdSpedizione(rs.getInt("id_spedizione"));
 				bean.setIdFatturazione(rs.getInt("id_fatturazione"));
-				bean.setIdPagamento(rs.getInt("id_pagamento"));
+				bean.setIdPagamento(rs.getString("id_pagamento"));
 				bean.setNote(rs.getString("note"));
 				bean.setCostoSpedizione(rs.getDouble("costo_spedizione"));
 				bean.setPrezzoTotale(rs.getDouble("prezzo_totale"));

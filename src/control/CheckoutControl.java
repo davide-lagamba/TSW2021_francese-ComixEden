@@ -26,7 +26,7 @@ public class CheckoutControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+        
 		doPost(request, response);
 
 	}
@@ -38,7 +38,6 @@ public class CheckoutControl extends HttpServlet {
 		if (user == null) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login");
 			dispatcher.forward(request, response);
-			return;
 		}
 
 		Carrello cart = (Carrello) request.getSession().getAttribute("cart");
@@ -49,17 +48,71 @@ public class CheckoutControl extends HttpServlet {
 
 		int id = -1;
 		
+		MetodoPagamento mp=new MetodoPagamento();
+		mp.setNumero(request.getParameter("numero_carta"));
+		mp.setCircuito(request.getParameter("circuito"));
+		mp.setScadenza(Date.valueOf(request.getParameter("scadenza")));
+		
+		Indirizzo fa=new Indirizzo();
+		fa.setCap(request.getParameter("cap_fatturazione"));
+		fa.setCitta(request.getParameter("citta_fatturazione"));
+		fa.setStato(request.getParameter("stato_fatturazione"));
+		fa.setVia(request.getParameter("via_fatturazione"));
+		Indirizzo sp=new Indirizzo();
+		sp.setCap(request.getParameter("cap_spedizione"));
+		sp.setCitta(request.getParameter("citta_spedizione"));
+		sp.setStato(request.getParameter("stato_spedizione"));
+		sp.setVia(request.getParameter("via_spedizione"));
+		
+		try {
+			
+			MetodoPagamentoDS m=new MetodoPagamentoDS();
+			IndirizzoDS i=new IndirizzoDS();
+			if(m.doRetrieveByKey(mp.getNumero()).getNumero()==null)
+			{
+				m.doSave(mp, user);
+			}
+			if(fa.getId()==-1)
+			{
+				
+				if(i.doRetrieveByKey(fa.getCitta(),fa.getStato(),fa.getCap(),fa.getVia()).getId()==-1)
+				{
+				    i.doSave(fa, user);
+				}
+			}
+			if(sp.getId()==-1)
+			{
+				if(i.doRetrieveByKey(sp.getCitta(),sp.getStato(),sp.getCap(),sp.getVia()).getId()==-1)
+				{
+				    i.doSave(sp, user);
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Error 1:" + e.getMessage());
+		}
+		
 		Ordine order = new Ordine();
 		order.setConsegnato(false);
 		order.setIdUtente(user.getId_utente());
-		order.setIdSpedizione(-1);
-		order.setIdFatturazione(-1);
+		//
+		try {
+		IndirizzoDS iDS=new IndirizzoDS();
+		Indirizzo spReg=iDS.doRetrieveByKey(sp.getCitta(),sp.getStato(),sp.getCap(),sp.getVia());
+		Indirizzo faReg=iDS.doRetrieveByKey(fa.getCitta(),fa.getStato(),fa.getCap(),fa.getVia());
+		order.setIdSpedizione(spReg.getId());
+		order.setIdFatturazione(faReg.getId());
+		} catch (SQLException e) {
+			System.out.println("Error Adresse:" + e.getMessage());
+		}
+		
 		order.setNote(request.getParameter("note"));
-		order.setIdPagamento(-1);
+		//
+		order.setIdPagamento(mp.getNumero());
+		//
 		order.setQuantita(cart.getQuantity());
 		order.setCostoSpedizione(5);
 		order.setPrezzoTotale(cart.getPrezzoTot());
-
+        
 		Date now = new Date(new java.util.Date().getTime());
 		order.setData(now);
 
@@ -91,9 +144,10 @@ public class CheckoutControl extends HttpServlet {
 		Carrello nuovo= new Carrello();
 		request.getSession().setAttribute("cart", nuovo);
 		request.setAttribute("cart", nuovo);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/product");
+		request.setAttribute("ordine", order);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/acquistoEffettuato.jsp");
 		dispatcher.forward(request, response);
-		return;
+
 	}
 
 }

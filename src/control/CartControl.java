@@ -73,7 +73,33 @@ public class CartControl  extends HttpServlet{
 				
 			else if (action.equalsIgnoreCase("Checkout")) {
 				cart = new Carrello();
-				RequestDispatcher dispatcher =   getServletContext().getRequestDispatcher("/pages/checkout.jsp");
+				Utente user= (Utente) request.getSession().getAttribute("utente");
+				try {
+	                if(user==null)
+	                {
+	                	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/login.jsp");
+	    				dispatcher.forward(request, response);
+	    				return;
+	                }
+					MetodoPagamento mp=new MetodoPagamentoDS().doRetrieveByKey(user);
+					if(mp!=null)
+					{
+						request.setAttribute("pagamento", mp);
+					}
+				} catch (SQLException e) {
+					System.out.println("Error 1:" + e.getMessage());
+				}
+				try {
+				
+					Indirizzo in=new IndirizzoDS().doRetrieveByKey(user);
+					if(in!=null)
+					{
+						request.setAttribute("indirizzo", in);
+					}
+				} catch (SQLException e) {
+					System.out.println("Error 1:" + e.getMessage());
+				}
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/checkout.jsp");
 				dispatcher.forward(request, response);
 				return;
 			}

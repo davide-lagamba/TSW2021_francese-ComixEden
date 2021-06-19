@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `comixedendb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `comixedendb`;
--- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.24, for macos11 (x86_64)
 --
 -- Host: localhost    Database: comixedendb
 -- ------------------------------------------------------
--- Server version	8.0.22
+-- Server version	8.0.24
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +26,7 @@ CREATE TABLE `categoria` (
   `id_categoria` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +35,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'Manga'),(2,'Supereroi'),(3,'Italiani'),(6,'Combattimento'),(7,'Azione'),(8,'dsdadd'),(9,'4444'),(10,'5665'),(11,'32r'),(12,'456456'),(13,'gdfgdfgdfg'),(14,'qweqwe'),(15,'121221'),(16,'13123'),(17,'ADDWDQWD'),(18,'rrrrr'),(19,'122'),(20,'tr'),(21,'23'),(22,'234'),(23,'324'),(24,'213'),(25,'wqd'),(26,'55'),(27,'231'),(28,'ererepore'),(29,'2431'),(30,'42342342'),(31,'67'),(32,'32');
+INSERT INTO `categoria` VALUES (1,'Manga'),(2,'Supereroi'),(3,'Italiani');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +59,7 @@ CREATE TABLE `dettaglio_ordine` (
   PRIMARY KEY (`id_dettaglio`),
   KEY `id_ordine_idx` (`id_ordine`),
   CONSTRAINT `id_ordine` FOREIGN KEY (`id_ordine`) REFERENCES `ordine` (`id_ordine`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +68,7 @@ CREATE TABLE `dettaglio_ordine` (
 
 LOCK TABLES `dettaglio_ordine` WRITE;
 /*!40000 ALTER TABLE `dettaglio_ordine` DISABLE KEYS */;
-INSERT INTO `dettaglio_ordine` VALUES (53,1,47,61,5,10,22,'DragonBall',0),(54,2,47,43.92,6,6,22,'Superman',0),(55,1,49,6.1,5,1,22,'DragonBall',0),(56,1,50,6.1,5,1,22,'DragonBall',0),(57,1,51,6.1,5,1,22,'DragonBall',0),(58,1,52,36.599999999999994,5,6,22,'DragonBall',0),(59,2,52,80.52000000000001,6,11,22,'Superman',0),(60,3,52,46.11600000000001,6,7,22,'Tex',10),(61,1,53,6.1,5,1,22,'DragonBall',0),(62,2,54,14.64,6,2,22,'Superman',0),(63,2,55,7.32,6,1,22,'Superman',0),(64,2,56,7.32,6,1,22,'Superman',0),(65,3,56,19.764000000000003,6,3,22,'Tex',10),(66,5,56,6.831999999999999,7,1,22,'Spider Man',20),(67,10,57,50.727599999999995,7,6,22,'fffff',1),(68,8,59,7.32,6,1,22,'Naruto',0),(69,11,60,6.1,5,1,22,'test',0),(70,2,61,58.56,6,8,22,'Superman',0),(71,5,61,13.663999999999998,7,2,22,'Spider Man',20),(72,1,62,7.32,6,1,22,'DragonBall',0);
+INSERT INTO `dettaglio_ordine` VALUES (1,5,24,6.831999999999999,7,1,22,'Spider Man',20);
 /*!40000 ALTER TABLE `dettaglio_ordine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,11 +83,10 @@ CREATE TABLE `immagine` (
   `Nome` varchar(45) NOT NULL,
   `id_prodotto` int NOT NULL,
   `copertina` tinyint(1) NOT NULL,
-  `id_immagine` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id_immagine`),
+  PRIMARY KEY (`Nome`),
   KEY `id_prodotto_immagine_idx` (`id_prodotto`),
-  CONSTRAINT `id_prodotto_immagine` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `id_prodotto_immagine` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,8 +95,87 @@ CREATE TABLE `immagine` (
 
 LOCK TABLES `immagine` WRITE;
 /*!40000 ALTER TABLE `immagine` DISABLE KEYS */;
-INSERT INTO `immagine` VALUES ('1-2.jpg',1,0,1),('1.jpg',1,1,2),('2.jpg',2,1,3),('4.jpg',4,1,4),('5.jpg',5,1,5),('6.jpg',6,1,6),('7.jpg',7,1,7),('tex1.jpg',3,1,10),('Batman_3_variant.jpg',16,1,13);
+INSERT INTO `immagine` VALUES ('1-2.jpg',1,0),('1.jpg',1,1),('2.jpg',2,1),('3.jpg',3,1),('4.jpg',4,1),('5.jpg',5,1),('6.jpg',6,1),('7.jpg',7,1),('8.jpg',8,1);
 /*!40000 ALTER TABLE `immagine` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `indirizzo`
+--
+
+DROP TABLE IF EXISTS `indirizzo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `indirizzo` (
+  `id_indirizzo` int NOT NULL AUTO_INCREMENT,
+  `stato` varchar(45) NOT NULL,
+  `citta` varchar(45) NOT NULL,
+  `cap` varchar(5) NOT NULL,
+  `via` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_indirizzo`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `indirizzo`
+--
+
+LOCK TABLES `indirizzo` WRITE;
+/*!40000 ALTER TABLE `indirizzo` DISABLE KEYS */;
+INSERT INTO `indirizzo` VALUES (1,'italia','napoli','12121','cv dvddx'),(2,'italia','napoli','12121','Sddscfsd'),(3,'italia','Dcscf','12121','Dfvdsv'),(4,'italia','napoli','12121','Dfvdsv');
+/*!40000 ALTER TABLE `indirizzo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `locazione`
+--
+
+DROP TABLE IF EXISTS `locazione`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `locazione` (
+  `id_indirizzo` int NOT NULL,
+  `id_utente` int NOT NULL,
+  PRIMARY KEY (`id_indirizzo`,`id_utente`),
+  KEY `id_utente_locazione_idx` (`id_utente`),
+  CONSTRAINT `id_indirizzo_locazione` FOREIGN KEY (`id_indirizzo`) REFERENCES `indirizzo` (`id_indirizzo`),
+  CONSTRAINT `id_utente_locazione` FOREIGN KEY (`id_utente`) REFERENCES `utente` (`id_utente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `locazione`
+--
+
+LOCK TABLES `locazione` WRITE;
+/*!40000 ALTER TABLE `locazione` DISABLE KEYS */;
+INSERT INTO `locazione` VALUES (2,17),(3,17),(4,17);
+/*!40000 ALTER TABLE `locazione` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `metodo_pagamento`
+--
+
+DROP TABLE IF EXISTS `metodo_pagamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `metodo_pagamento` (
+  `numero` varchar(16) NOT NULL,
+  `scadenza` date NOT NULL,
+  `circuito` varchar(45) NOT NULL,
+  PRIMARY KEY (`numero`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `metodo_pagamento`
+--
+
+LOCK TABLES `metodo_pagamento` WRITE;
+/*!40000 ALTER TABLE `metodo_pagamento` DISABLE KEYS */;
+INSERT INTO `metodo_pagamento` VALUES ('1111111111111111','1999-12-31','visa');
+/*!40000 ALTER TABLE `metodo_pagamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -115,7 +191,7 @@ CREATE TABLE `ordine` (
   `id_spedizione` int DEFAULT NULL,
   `id_fatturazione` int DEFAULT NULL,
   `note` varchar(45) DEFAULT NULL,
-  `id_pagamento` int DEFAULT NULL,
+  `id_pagamento` varchar(16) DEFAULT NULL,
   `costo_spedizione` double DEFAULT NULL,
   `prezzo_totale` double NOT NULL,
   `quantita` int NOT NULL,
@@ -123,8 +199,14 @@ CREATE TABLE `ordine` (
   `consegnato` tinyint DEFAULT NULL,
   PRIMARY KEY (`id_ordine`),
   KEY `id_utente_ordine_idx` (`id_utente`),
+  KEY `id_fatturazione_ordine_idx` (`id_fatturazione`),
+  KEY `id_pagamento_ordine_idx` (`id_pagamento`),
+  KEY `id_spedizione_ordine_idx` (`id_spedizione`),
+  CONSTRAINT `id_fatturazione_ordine` FOREIGN KEY (`id_fatturazione`) REFERENCES `indirizzo` (`id_indirizzo`),
+  CONSTRAINT `id_pagamento_ordine` FOREIGN KEY (`id_pagamento`) REFERENCES `metodo_pagamento` (`numero`),
+  CONSTRAINT `id_spedizione_ordine` FOREIGN KEY (`id_spedizione`) REFERENCES `indirizzo` (`id_indirizzo`),
   CONSTRAINT `id_utente_ordine` FOREIGN KEY (`id_utente`) REFERENCES `utente` (`id_utente`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +215,7 @@ CREATE TABLE `ordine` (
 
 LOCK TABLES `ordine` WRITE;
 /*!40000 ALTER TABLE `ordine` DISABLE KEYS */;
-INSERT INTO `ordine` VALUES (47,1,-1,-1,'',-1,5,104.92,16,'2021-05-13',0),(48,1,-1,-1,NULL,-1,5,0,0,'2021-05-13',0),(49,1,-1,-1,NULL,-1,5,6.1,1,'2021-05-13',0),(50,1,-1,-1,'',-1,5,6.1,1,'2021-05-13',0),(51,9,-1,-1,'',-1,5,6.1,1,'2021-05-14',0),(52,9,-1,-1,'rf',-1,5,163.23600000000002,24,'2021-05-14',0),(53,5,-1,-1,'',-1,5,6.1,1,'2021-05-14',0),(54,9,-1,-1,'',-1,5,14.64,2,'2021-05-14',0),(55,5,-1,-1,'',-1,5,7.32,1,'2021-05-14',0),(56,10,-1,-1,'veloce',-1,5,33.916000000000004,5,'2021-05-16',0),(57,5,-1,-1,'',-1,5,50.727599999999995,6,'2021-05-18',0),(58,5,-1,-1,'',-1,5,0,0,'2021-05-18',0),(59,5,-1,-1,'',-1,5,7.32,1,'2021-05-18',0),(60,5,-1,-1,'',-1,5,6.1,1,'2021-05-18',0),(61,12,-1,-1,'Consegna velocissima',-1,5,72.224,10,'2021-05-20',0),(62,5,-1,-1,'',-1,5,7.32,1,'2021-05-21',0);
+INSERT INTO `ordine` VALUES (12,17,3,2,'','1111111111111111',5,6.1,1,'2021-06-17',0),(23,17,3,4,'','1111111111111111',5,7.32,1,'2021-06-19',0),(24,17,4,4,'','1111111111111111',5,6.831999999999999,1,'2021-06-19',0);
 /*!40000 ALTER TABLE `ordine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +249,7 @@ CREATE TABLE `prodotto` (
   KEY `id_categoria_idx` (`id_categoria`),
   CONSTRAINT `id_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `id_produttore` FOREIGN KEY (`id_produttore`) REFERENCES `produttore` (`id_produttore`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +258,7 @@ CREATE TABLE `prodotto` (
 
 LOCK TABLES `prodotto` WRITE;
 /*!40000 ALTER TABLE `prodotto` DISABLE KEYS */;
-INSERT INTO `prodotto` VALUES (1,6,'Primo volume','Nuovo',50,150,'Akira Toriyama','Italiano','2020-12-10',29,0,'BW',22,NULL,1,1,'DragonBall'),(2,6,'Primo volume','Nuovo',60,200,'DC Comics','Italiano','2020-11-12',11,0,'BW',22,NULL,2,2,'Superman'),(3,6,'Primo volume','Nuovo',40,100,'Giovanni Luigi Bonelli','Italiano','2019-11-12',40,10,'BW',22,NULL,3,3,'Tex'),(4,6,'Secondo Volume','Usato',50,150,'Marvel','Italiano','2020-02-02',30,0,'BW',22,NULL,2,2,'Iron Man'),(5,7,'Secondo Volume','Nuovo',40,100,'Marvel','Italiano','2020-03-01',9,20,'BW',22,NULL,2,2,'Spider Man'),(6,7,'Primo Volume','Nuovo',30,80,'Marvel','Italiano','2019-03-12',12,20,'BW',22,NULL,2,2,'DareDevil'),(7,6,'Primo Volume','Nuovo',50,150,'Eichiro Oda','Italiano','2019-04-12',11,0,'BW',22,NULL,1,1,'One Piece'),(16,23,'Secondo volume','Nuovo',0,23,'popo','popo','2021-05-19',23,23,'BW',22,NULL,9,6,'Thor'),(17,33,'Secondo volume','Nuovo',0,32,'Akira Yammaoto','Italiano','2021-05-19',32,32,'BW',32,NULL,9,7,'Toro');
+INSERT INTO `prodotto` VALUES (1,5,'Primo volume','Nuovo',50,150,'Akira Toriyama','Italiano','2020-12-10',40,0,'BW',22,NULL,1,1,'DragonBall'),(2,6,'Primo volume','Nuovo',60,200,'DC Comics','Italiano','2020-11-12',20,0,'BW',22,NULL,2,2,'Superman'),(3,6,'Primo volume','Nuovo',40,100,'Giovanni Luigi Bonelli','Italiano','2019-11-12',23,10,'BW',22,NULL,3,3,'Tex'),(4,6,'Secondo Volume','Usato',50,150,'Marvel','Italiano','2020-02-02',20,0,'BW',22,NULL,2,2,'Iron Man'),(5,7,'Secondo Volume','Nuovo',40,100,'Marvel','Italiano','2020-03-01',9,20,'BW',22,NULL,2,2,'Spider Man'),(6,7,'Primo Volume','Nuovo',30,80,'Marvel','Italiano','2019-03-12',15,20,'BW',22,NULL,2,2,'DareDevil'),(7,6,'Primo Volume','Nuovo',50,150,'Eichiro Oda','Italiano','2019-04-12',20,0,'BW',22,NULL,1,1,'One Piece'),(8,6,'Primo Volume','Nuovo',50,150,'Masashi Kishimoto','Italiano','2018-12-11',10,0,'BW',22,NULL,1,1,'Naruto');
 /*!40000 ALTER TABLE `prodotto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,10 +271,10 @@ DROP TABLE IF EXISTS `produttore`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `produttore` (
   `id_produttore` int NOT NULL AUTO_INCREMENT,
-  `partita_iva` varchar(45) DEFAULT NULL,
+  `partita_iva` varchar(45) NOT NULL,
   `nome` varchar(45) NOT NULL,
   PRIMARY KEY (`id_produttore`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,7 +283,7 @@ CREATE TABLE `produttore` (
 
 LOCK TABLES `produttore` WRITE;
 /*!40000 ALTER TABLE `produttore` DISABLE KEYS */;
-INSERT INTO `produttore` VALUES (1,'123456','Panini'),(2,'213123','StarComix'),(3,'123123','PlanetManga'),(9,NULL,'Animeniacs'),(10,NULL,'wewewe'),(11,NULL,'444'),(12,NULL,'5656'),(13,NULL,'32r'),(14,NULL,'456464'),(15,NULL,'gdfgdfgdf'),(16,NULL,'weqwe'),(17,NULL,'12323'),(18,NULL,'3123123'),(19,NULL,'ASDASD'),(20,NULL,'rrrrrr'),(21,NULL,'1212'),(22,NULL,'rt'),(23,NULL,'we'),(24,NULL,'1234'),(25,NULL,'324'),(26,NULL,'123'),(27,NULL,'qwd'),(28,NULL,'55'),(29,NULL,'eproepr'),(30,NULL,'4213'),(31,NULL,'42342'),(32,NULL,'67'),(33,NULL,'23');
+INSERT INTO `produttore` VALUES (1,'123456','Panini'),(2,'213123','StarComix'),(3,'123123','PlanetManga');
 /*!40000 ALTER TABLE `produttore` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,9 +303,8 @@ CREATE TABLE `utente` (
   `telefono` varchar(45) DEFAULT NULL,
   `data_registrazione` date NOT NULL,
   `admin` tinyint NOT NULL,
-  PRIMARY KEY (`id_utente`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id_utente`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,8 +313,35 @@ CREATE TABLE `utente` (
 
 LOCK TABLES `utente` WRITE;
 /*!40000 ALTER TABLE `utente` DISABLE KEYS */;
-INSERT INTO `utente` VALUES (1,'aa','aa','dd','dw','12','2021-12-04',0),(2,'bb','bb','bb','bb','122','2021-11-04',0),(3,'DAVIDE','LA GAMBA','prova','123','23','2021-05-13',0),(5,'popo','popo','popo','popo','123','2021-05-14',0),(6,'qq','qq','qq','qq','123','2021-05-14',0),(7,'qs','qs','qs','qs','qs','2021-05-14',0),(8,'df','df','df','df','123','2021-05-14',0),(9,'ff','ff','ff','ff','ff','2021-05-14',0),(10,'sara','sara','sara','sara','123','2021-05-16',0),(11,'admin','admin','admin','admin','123','2021-12-12',1),(12,'Mirko','Pacelli','mirko','123','123','2021-05-20',0);
+INSERT INTO `utente` VALUES (1,'Hdhdh','Hldhdhd','mariano','123','Mdddl','2021-05-11',0),(2,'mario ','Merlo','pippo23@outlook.it','1234','1233443','2021-05-13',0),(3,'Mario','Nerone','nerone@hotnando.com','pietro','332423423','2021-05-13',0),(4,'Mario','Merlo','Kdmskl','1234','12231312','2021-05-13',0),(5,'Ifjni','Sdkfmsd','Dkfmvkd','dfmvdfklÃ²','LkfdmÃ²lv','2021-05-13',0),(6,'Mariolo','Mariti','tizio','caio','Dwefw','2021-05-13',0),(7,'Mario','Merlo','pippocar','123','32432342','2021-05-13',0),(8,'Jkjkjkkj','Jkjkkjjk','Kmkkjjk','jkkkjkj','Kkjkjkjk','2021-05-13',0),(9,'Ritrar','Tytryr','Rtytry','rtyry','Ytryryry','2021-05-13',0),(10,'Ffwe','Feef','Effe','fefef','Efffe','2021-05-13',0),(11,'Rare','Erer','Erre','ere','Errerete','2021-05-13',1),(12,'Lklkjnkl','Knlknkl','Lknlnlk','kljl','Llhjklhjk','2021-05-13',0),(13,'Fremer','Ferrea','Refer','erfer','Referferf','2021-05-13',0),(14,'Fdojdfoi','Fdkndfl','Vdlkvmkdlf','dfvdfkl','Dflkvmdkl','2021-05-13',0),(15,'Gfgr','Ergere','Gergo','grege','Reger','2021-05-13',0),(16,'Wedwd','End','Wedw','ewdedw','Wdwdwdw','2021-05-13',0),(17,'mario','iezza','mario','mario','3243242','2021-02-01',0);
 /*!40000 ALTER TABLE `utente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `utilizzo`
+--
+
+DROP TABLE IF EXISTS `utilizzo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `utilizzo` (
+  `id_utente` int NOT NULL,
+  `numero_pagamento` varchar(16) NOT NULL,
+  PRIMARY KEY (`id_utente`,`numero_pagamento`),
+  KEY `numero_pagamento_utente_idx` (`numero_pagamento`),
+  CONSTRAINT `id_utente` FOREIGN KEY (`id_utente`) REFERENCES `utente` (`id_utente`),
+  CONSTRAINT `numero_pagamento_utente` FOREIGN KEY (`numero_pagamento`) REFERENCES `metodo_pagamento` (`numero`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `utilizzo`
+--
+
+LOCK TABLES `utilizzo` WRITE;
+/*!40000 ALTER TABLE `utilizzo` DISABLE KEYS */;
+INSERT INTO `utilizzo` VALUES (17,'1111111111111111');
+/*!40000 ALTER TABLE `utilizzo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -245,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-22 11:33:38
+-- Dump completed on 2021-06-19 16:05:50
