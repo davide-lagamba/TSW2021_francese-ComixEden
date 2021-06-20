@@ -10,6 +10,9 @@ body {
 	margin: 0;
 }
 
+.errorForm{
+	background-color: #FFCCCB;
+}
 /*** Formato immagini ***/
 td img {
 	display: block;
@@ -17,10 +20,10 @@ td img {
 	height: 100%;
 }
 
-td img:hover {
-	transform: scale(1.5);
-	overflow: hidden;
-}
+.card img:hover {
+		transform: scale(1.0);
+		opacity: 75%;
+	}
 
 img {
 	width: 100px;
@@ -92,8 +95,16 @@ h2, h3 {
 	width: 200px;
 	height: auto;
 	margin-top: 10px;
+	transition-duration: 250ms;
+	margin-left:auto;
 }
 
+.card:hover{
+	transform: scale(1.2);
+
+	box-shadow: 5px 20px 30px rgba(0, 0, 0, 0.4);
+	z-index: 3;
+}
 .price {
 	color: grey;
 	font-size: 22px;
@@ -179,6 +190,8 @@ textarea {
 .containernav {
 	overflow: hidden;
 	background-color: #e9e9e9;
+	display:flex;
+	align-items:center;
 }
 
 .containernav a {
@@ -193,6 +206,7 @@ textarea {
 	max-height: -webkit-fill-available;
 	padding: 20px;
 	margin: 20px;
+	border-radius:14px;
 }
 
 .containernav #logo {
@@ -221,12 +235,20 @@ footer {
 	text-align: center;
 	padding: 40px 0px 40px 0px;
 	margin-top: 20px;
+	    display: flex;
+    justify-content: space-evenly;
 }
 /*** End Footer ***/
 
 /*******************************************/
 @media screen and (max-width: 1000px) {
 	/*** Responsive Header ***/
+	.containernav {
+	overflow: hidden;
+	background-color: #e9e9e9;
+	display:block;
+	align-items:stretch;
+}
 	.containernav a:not(:first-child) {
 		display: none;
 	}

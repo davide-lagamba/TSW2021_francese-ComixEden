@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.google.gson.Gson;
+
 import model.*;
 
 @WebServlet("/admin/gestioneCatalogo")
@@ -52,13 +54,32 @@ public class GestioneCatalogoControl extends HttpServlet {
 					RequestDispatcher dispatcher = getServletContext()
 							.getRequestDispatcher("/pages/admin/gestioneProdotto.jsp");
 					dispatcher.forward(request, response);
-
+					return;
 				}
 			} catch (SQLException e) {
 				System.out.println("Error:" + e.getMessage());
 			}
 			try {
 				if (action != null) {
+					
+					if(action.equalsIgnoreCase("search")) {
+						
+						var u = new ProdottoDS().doSearchByName(request.getParameter("val"));
+						response.setContentType("application/json; charset=UTF-8");
+						response.setStatus(200);
+						Gson gson= new Gson();
+						response.getWriter().print(gson.toJson(u));
+						response.getWriter().flush();
+						return;
+					}
+					if(action.equalsIgnoreCase("cerca")) {
+					request.removeAttribute("products");
+					request.setAttribute("products", new ProdottoDS().doSearchByName(request.getParameter("searchVal")));
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/admin/gestioneCatalogo.jsp");
+					dispatcher.forward(request, response);
+					return;
+					}
+					
 					if (action.equalsIgnoreCase("inserisci")) {
 						request.removeAttribute("product");
 						String id = (request.getParameter("id"));
@@ -76,6 +97,7 @@ public class GestioneCatalogoControl extends HttpServlet {
 						RequestDispatcher dispatcher = getServletContext()
 								.getRequestDispatcher("/pages/admin/gestioneCatalogo.jsp");
 						dispatcher.forward(request, response);
+						return;
 					} else if (action.equalsIgnoreCase("delete")) {
 						int id = Integer.parseInt(request.getParameter("id"));
 						new ProdottoDS().doDelete(id);
@@ -283,7 +305,6 @@ public class GestioneCatalogoControl extends HttpServlet {
 						prodotto.setNome(nome);
 						new ProdottoDS().doUpdate(prodotto);
 						String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR;
-						System.out.println(request.getServletContext().getRealPath(""));
 						File fileSaveDir = new File(savePath);
 						if (!fileSaveDir.exists()) {
 							fileSaveDir.mkdir();

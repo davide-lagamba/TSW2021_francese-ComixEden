@@ -29,6 +29,8 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="icon" href="<%=getServletContext().getContextPath()%>/images/ComixEden.png">
 <link rel="stylesheet" type="text/css"
 	href="<%=getServletContext().getContextPath()%>/style/productviewstyle.css">
@@ -38,10 +40,26 @@
 <body>
 
 	<%@ include file="/fragments/header.jsp"%>
-	<h3><a href="gestioneCatalogo?action=inserisci">Aggiungi prodotto</a></h3><br><br>
-	<h2>Prodotti</h2>
+	
 	<br><br>
-		
+			<h2 class="is-size-2">Prodotti</h2>
+			
+	<h3><a href="gestioneCatalogo?action=inserisci">Aggiungi prodotto</a></h3><br><br>
+	<div class="field searchbar p-6">
+	  <div class="control has-icons-left has-icons-right">
+	  	<div id="dropdownsearch" class="dropdown is-active">
+	  	  <div class="dropdown-trigger">
+	  	    <input id="search" name="search" class="input" type="text" placeholder="Cerca..." autocomplete="off">
+	  	    <span class="icon is-small is-left">
+		      <i class="fa fa-search" aria-hidden="true"></i>
+		    </span>
+	  	  </div>
+	  	  <div id="dropdownmenu" class="dropdown-menu">
+	  	    
+	  	  </div>
+	  	</div>
+	  </div>
+	</div>
 	<div class="containerProdotti">
 		<%
 		if (products != null && products.size() != 0) {
@@ -54,7 +72,7 @@
 				<p><%=bean.getNome()%></p>
 				<p><%=bean.getDescrizione()%></p>
 				<div>
-					<img src="<%=getServletContext().getContextPath()%>/images/<%=(new ImmagineDS()).doRetrieveByKey(bean.getId()).getNome()%>" alt="<%=bean.getNome()%>">
+					<a href="gestioneCatalogo?id=<%=bean.getId()%>"><img src="<%=getServletContext().getContextPath()%>/images/<%=(new ImmagineDS()).doRetrieveByKey(bean.getId()).getNome()%>" alt="<%=bean.getNome()%>"></a>
 				</div>
 				<p>Autore: <%=bean.getAutori()%></p>
 				<p><a href="gestioneCatalogo?id=<%=bean.getId()%>">Dettagli</a></p>
@@ -72,5 +90,44 @@
 	</div>
 
 </body>
+<script src="<%=getServletContext().getContextPath() %>/script/jquery.js"></script>
+<script>
+var _changeSearch = null;
+$(document).ready(function(e) {
+	$("#search").on("keyup", function(){
+		clearInterval(_changeSearch);
+		
+		_changeSearch = setInterval(function() {
+			//Funzione richiamata quando si scrive in Search e
+			//abbiamo finito di scrivere (viene richiamata dopo x secondi, vedi intervallo setInterval)
+		
+			var textToSearch = $("#search").val();
+			if(textToSearch.length > 0) {
+				$.get("gestioneCatalogo", { action: "search", val: textToSearch }, function(data) {
+					$("#dropdownmenu").empty();
+					if(data.length > 0) {
+						data.forEach((e) => {
+							var myvar = '<div class="dropdown-content"><a class="dropdown-item" href="gestioneCatalogo?action=cerca&searchVal='+ e.nome + '">' + e.nome + '</a></div>';
+							$("#dropdownmenu").append(myvar);
+						})
+						$("#dropdownsearch").addClass("is-active");
+					}
+				})
+			} else {
+				$("#dropdownmenu").empty();
+			}
+	        clearInterval(_changeSearch)
+	    }, 500);
+	});
+	
+	$("#search").on('keypress',function(e) {
+	    if(e.which == 13) {
+	    	location.href = 'gestioneCatalogo?action=cerca&searchVal=' + $("#search").val()
+	    }
+	});
+})
+
+
+</script>
 <%@ include file="/fragments/footer.html"%>
 </html>

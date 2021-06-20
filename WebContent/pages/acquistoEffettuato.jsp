@@ -26,23 +26,26 @@
 		}
 	%>
 	<div class="container">
-		<h1>Grazie per aver acquistato sul nostro sito!provvederemo a spedire i suoi articoli al più presto</h1>
+		<h1>Grazie per aver acquistato sul nostro sito! Provvederemo a spedire i suoi articoli al più presto</h1>
 		<h2>Riepilogo del tuo ordine:</h2>
 		<table border="1">
+		<thead>
 			<tr>
-				<th>costo spedizione</th>
-				<th>prezzo totale</th>
-				<th>data acquisto</th>
-				<th>quantità</th>
+				<th scope="col">Costo spedizione</th>
+				<th scope="col">Prezzo totale</th>
+				<th scope="col">Data acquisto</th>
+				<th scope="col">Quantità</th>
 			</tr>
+			</thead>
 			<tr>
-				<td><%=or.getCostoSpedizione()%></td>
-				<td><%=or.getPrezzoTotale()%></td>
-				<td><%=or.getData()%></td>
-				<td><%=or.getQuantita()%></td>
+			
+				<td data-label="Costo spedizione"><%=or.getCostoSpedizione()%>&euro;</td>
+				<td data-label="Prezzo totale"><%=or.getPrezzoTotaleString()%>&euro;</td>
+				<td data-label="Data acquisto"><%=or.getData()%></td>
+				<td data-label="Quantità"><%=or.getQuantita()%></td>
 			</tr>			
 		</table>
-		<h2>per maggiori dettagli consulta la tua area utente</h2>
+		<h2>...per maggiori dettagli, consulta la tua area utente!</h2>
 	</div>
 	<%@ include file="../fragments/footer.html"%>
 </body>

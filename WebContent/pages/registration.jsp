@@ -23,12 +23,12 @@
 <title>Registrazione</title>
 </head>
 
-<body>
+<body onload="document.registration.nome.focus()">
 
 	<%@ include file="../fragments/header.jsp"%>
 	<div class="container">
 
-		<form action="Reg" method="post">
+		<form id="registration" action="Reg" method="post" name="registration" onSubmit="return formValidation();">
 
 
 			<h1>Register</h1>
@@ -36,10 +36,10 @@
 			<hr>
 
 			<label for="nome"><b>Nome: </b></label> <input type="text"
-				placeholder="nome" name="nome" id="nome" required> <br><br><label
+				placeholder="Mario" name="nome" id="nome" required> <br><span id="nomeError"></span><br><label
 				for="cognome"><b>Cognome: </b></label> <input type="text"
-				placeholder="cognome" name="cognome" id="cognome" required>
-			<br><br>
+				placeholder="Rossi" name="cognome" id="cognome" required>
+			<br><span id="cognomeError"></span><br>
 			<label for="email">
 			<b>Email: </b>
 			<%
@@ -50,10 +50,10 @@
 			<%
 				}
 			%></label><input type="text"
-				placeholder="email" name="email" id="email" required> 
+				placeholder="mrossi@gmail.com" name="email" id="email" required> 
 				
 				
-				<br> <br><label
+				<br> <span id="emailError"></span><br> <label
 				for="password"><b>Password: </b></label>
 
 			<%
@@ -65,14 +65,14 @@
 				}
 			%>
 			
-			<input type="password" placeholder="password" name="password"
-				id="password" required><br><br>
+			<input type="password" placeholder="4-12 caratteri" name="password"
+				id="password" required><br><span id="passError"></span><br>
 				<label for="psw-repeat"><b>Repeat
-					Password: </b></label><input type="password" placeholder="Repeat Password"
-				name="psw-repeat" id="psw-repeat" required> <br><br><label
+					Password: </b></label><input type="password" placeholder="Ripeti Password"
+				name="psw-repeat" id="psw-repeat" required> <br><span id="passrepError"></span><br><label
 				for="telefono"><b>Telefono: </b></label> <input type="number"
-				placeholder="telefono" name="telefono" id="telefono" required>
-<br>
+				placeholder="1234567890" name="telefono" id="telefono" required>
+<br><span id="telefError"></span><br>
 
 			<button type="submit" class="registerbtn">Register</button>
 
@@ -98,5 +98,8 @@
 		request.removeAttribute("error");
 	%>
 </body>
+<script src="<%=getServletContext().getContextPath() %>/script/jquery.js"></script>
+<script src="<%=getServletContext().getContextPath() %>/script/register-validation.js"></script>
+<script src="<%=getServletContext().getContextPath() %>/script/email-checking.js"></script>
 </html>
 

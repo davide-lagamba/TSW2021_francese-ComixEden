@@ -51,7 +51,7 @@
 							if (bean.isCopertina()) {
 				%>
 
-				<img src="<%=getServletContext().getContextPath()%>/images/<%=bean.getNome()%>" class="dettagliimg">
+				<img src="<%=getServletContext().getContextPath()%>/images/<%=bean.getNome()%>" class="big-img dettagliimg">
 
 				<%
 					}
@@ -65,7 +65,7 @@
 							Immagine bean = (Immagine) it.next();
 							if (!bean.isCopertina()) {
 				%>
-				<img src="<%=getServletContext().getContextPath()%>/images/<%=bean.getNome()%>" class="dettagliimg">
+				<img src="<%=getServletContext().getContextPath()%>/images/<%=bean.getNome()%>" class="big-img dettagliimg">
 					<%}
 				}
 			}%>
@@ -164,8 +164,32 @@
 
 		</table><%} %>
 		<br><br>
-		<a href="gestioneCatalogo?action=inserisci&id=<%=product.getId()%>">Modifica prodotto</a>
+		<a href="gestioneCatalogo?action=inserisci&id=<%=product.getId()%>">Modifica prodotto</a><br><br>
+			<form action="gestioneCatalogo" method="post">
+					<input type="hidden" name="id" value=<%=product.getId()%>>
+					<input type="submit" name="action" value="Rimuovi">
+				</form>
 	</div>
 	<%@ include file="/fragments/footer.html"%>
 </body>
+<script
+	src="<%=getServletContext().getContextPath()%>/script/jquery.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/smooth-zoom@latest/dist/zoom.browser.js"></script>
+
+	<script type="text/javascript" src="<%=getServletContext().getContextPath()%>/script/okzoom.js"></script>
+		<script>
+	$(document).ready(function(){
+		$('.big-img').okzoom({
+			  width: 250,  
+			  height: 250,  
+			  round: true,
+			  background: "#fff",
+			  //backgroundRepeat: "repeat",
+			  shadow: "0 0 5px #000",
+			  border: "1px solid black"
+			});			
+	})
+	  
+
+	</script>
 </html>

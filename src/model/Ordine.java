@@ -77,7 +77,7 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	public String getPrezzoTotaleString() {
-		  return String.format("%.2f", getPrezzoTotale()) + "�";
+		  return String.format("%.2f", getPrezzoTotale());
 	}
 	public int getQuantita() {
 		return quantita;

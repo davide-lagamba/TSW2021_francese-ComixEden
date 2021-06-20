@@ -13,7 +13,7 @@
 <link rel="icon" href="<%=getServletContext().getContextPath()%>/images/ComixEden.png">
 <link rel="stylesheet" type="text/css"
 	href="<%=getServletContext().getContextPath()%>/style/productviewstyle.css">
-<title>Errore</title>
+<title>Grazie!</title>
 </head>
 
 <body>

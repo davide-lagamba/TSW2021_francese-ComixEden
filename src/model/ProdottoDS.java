@@ -385,4 +385,53 @@ public class ProdottoDS {
 		}
 		return result;
 	}
+	
+	public synchronized Collection<Prodotto> doSearchByName(String nome) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<Prodotto> products = new LinkedList<Prodotto>();
+		
+		String selectSQL = "SELECT * FROM " + ProdottoDS.TABLE_NAME + " WHERE nome LIKE ?";
+
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, "%"+nome+"%");
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				Prodotto bean = new Prodotto();
+				bean.setId(rs.getInt("id_prodotto"));
+				bean.setPrezzoBase(rs.getDouble("prezzo_base"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setStato(rs.getString("stato"));
+				bean.setPeso(rs.getDouble("peso"));
+				bean.setPagine(rs.getInt("pagine"));
+				bean.setAutori(rs.getString("autori"));
+				bean.setLingua(rs.getString("lingua"));
+				bean.setData(rs.getDate("data"));
+				bean.setDisponibilita(rs.getInt("disponibilita"));
+				bean.setSconto(rs.getInt("sconto"));
+				bean.setColoreStampa(rs.getString("colore_stampa"));
+				bean.setIva(rs.getDouble("iva"));
+				bean.setIdProduttore(rs.getInt("id_produttore"));
+				bean.setIdCategoria(rs.getInt("id_categoria"));
+				bean.setNome(rs.getString("nome"));
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
+	}
+	
 }

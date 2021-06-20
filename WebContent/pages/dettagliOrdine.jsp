@@ -13,11 +13,11 @@ if (user == null) {
 	Collection<?> dettagli = (Collection<?>) request.getAttribute("dettagli");
 	
 	if ((dettagli == null)&&(research!=null)) {
-		response.sendRedirect("../ordersad");
+		response.sendRedirect("/ordersad");
 		return;
 	}
 	if (dettagli == null) {
-		response.sendRedirect("../orders");
+		response.sendRedirect("/orders");
 		return;
 	}
 
@@ -32,7 +32,7 @@ if (user == null) {
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="icon" href="./images/ComixEden.png">
+<link rel="icon" href="<%=getServletContext().getContextPath() %>/images/ComixEden.png">
 <link rel="stylesheet" type="text/css"
 	href="<%=getServletContext().getContextPath() %>/style/productviewstyle.css">
 <title>Dettaglio ordine</title>
@@ -46,12 +46,13 @@ if (user == null) {
 		<table border="1">
 		<caption>Dettaglio Ordine</caption>
 			<tr>
-				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=id_dettaglio">ID</a></th>
-				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=nome">Nome</a></th>
-				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=prezzo_tot">Prezzo totale</a></th>
-				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=prezzo_singolo">Prezzo singolo</a></th>
-				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=iva">Iva</a></th>
-				<th scope="col"><a href="orders?id=<%=id_ordine %>&sort=quantita">Quantità</a></th>
+			
+				<th scope="col">ID</th>
+				<th scope="col">Nome</th>
+				<th scope="col">Prezzo totale</th>
+				<th scope="col">Prezzo singolo</th>
+				<th scope="col">Iva</th>
+				<th scope="col">Quantità</th>
 				<th>Azione</th>
 			</tr>
 			<%
@@ -86,7 +87,6 @@ if (user == null) {
 				}
 			%>
 		</table>
-
 
 	</div>
 

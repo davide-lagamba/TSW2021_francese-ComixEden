@@ -133,7 +133,6 @@ public class CheckoutControl extends HttpServlet {
 		for (int i = 0; i < lista.size(); i++) {
 			dettaglio = (DettaglioOrdine) lista.get(i);
 			dettaglio.setIdOrdine(id);
-			System.out.println("id: " + id);
 			try {
 				new DettaglioOrdineDS().doSave(dettaglio);
 				new ProdottoDS().removeDisponibilita(dettaglio.getIdProdotto(), dettaglio.getNumItems());
@@ -144,8 +143,10 @@ public class CheckoutControl extends HttpServlet {
 		Carrello nuovo= new Carrello();
 		request.getSession().setAttribute("cart", nuovo);
 		request.setAttribute("cart", nuovo);
+
 		request.setAttribute("ordine", order);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/acquistoEffettuato.jsp");
+
 		dispatcher.forward(request, response);
 
 	}

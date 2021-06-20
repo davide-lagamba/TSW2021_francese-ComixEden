@@ -3,8 +3,8 @@ var bool2=true;
 function formEValidation()
 {
 	boolean=true;
-    var email = document.registration.email;
-{   
+    var email = document.searchEmail.email;
+    
 if(ValidateEmail(email))
 {
 	if(boolean===false){
@@ -14,12 +14,11 @@ if(ValidateEmail(email))
 	document.getElementById("searchEmail").submit();
 } 
 }
-}
-/*
+
 function formDValidation()
-{
-    var datai = document.ordersearch.email;
-    var dataf = document.registration.email;
+{	bool2=true;
+    var datai = document.searchDate.inizio;
+    var dataf = document.searchDate.fine;
 
 if(ValidateDate(datai,dataf))
 {
@@ -32,21 +31,27 @@ if(ValidateDate(datai,dataf))
 
 function ValidateDate(datai,dataf)
 {
-if(dates.compare (datai, dataf)>=0)
+	 
+	var dataival= datai.value;
+	var datafval= dataf.value;
+	var Date1= new Date(dataival);
+	var Date2= new Date(datafval);
+if((Date1 <= Date2))
 {
 	 document.getElementById("dataError").textContent="";
-	uemail.classList.remove("errorForm");
+	datai.classList.remove("errorForm");
+	dataf.classList.remove("errorForm");
 	return true;
 }
 else
 {
 	 document.getElementById("dataError").textContent="Inserisci un periodo valido";
-	 uemail.classList.add("errorForm");
-	 boolean= false;
+	datai.classList.add("errorForm");
+	dataf.classList.add("errorForm");
+	 bool2= false;
 	 return true;
 }
 } 
-*/
 function ValidateEmail(uemail)
 {
 var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

@@ -72,7 +72,8 @@ public class RegistrationControl extends HttpServlet{
 		        	   Utente userReg=model.doRetrieveByKey(email);
 		        	   request.getSession().setAttribute("utente", userReg);
 		        	   request.getSession().setAttribute("cart", cart);  
-		        	   if(request.getSession().getAttribute("page").equals("checkout")) {
+		        	   String page= (String) request.getSession().getAttribute("page");
+		        	   if(page!=null && !page.equals("") && page.equals("checkout")) {
 				       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cartView");
 				       dispatcher.forward(request, response);
 				       return;}else {

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import model.*;
 
 /**
@@ -36,7 +38,7 @@ public class ProductControl extends HttpServlet {
 			cart = new Carrello();
 			request.getSession().setAttribute("cart", cart);
 		}
-
+	
 		String action = request.getParameter("action");
 
 		String id_prodotto = (request.getParameter("id"));
@@ -47,6 +49,7 @@ public class ProductControl extends HttpServlet {
 				request.setAttribute("product", model.doRetrieveByKey(Integer.parseInt(id_prodotto)));
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/details.jsp");
 				dispatcher.forward(request, response);
+				return;
 
 			}
 		} catch (SQLException e) {
@@ -54,6 +57,24 @@ public class ProductControl extends HttpServlet {
 		}
 		try {
 			if (action != null) {
+				
+				if(action.equalsIgnoreCase("search")) {
+			
+					var u = new ProdottoDS().doSearchByName(request.getParameter("val"));
+					response.setContentType("application/json; charset=UTF-8");
+					response.setStatus(200);
+					Gson gson= new Gson();
+					response.getWriter().print(gson.toJson(u));
+					response.getWriter().flush();
+					return;
+				}
+				if(action.equalsIgnoreCase("cerca")) {
+				request.removeAttribute("products");
+				request.setAttribute("products", model.doSearchByName(request.getParameter("searchVal")));
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/ProductView.jsp");
+				dispatcher.forward(request, response);
+				return;
+				}
 				if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					cart.removeItem(id);
@@ -63,6 +84,7 @@ public class ProductControl extends HttpServlet {
 					request.setAttribute("product", model.doRetrieveByKey(id));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/details.jsp");
 					dispatcher.forward(request, response);
+					return;
 				} else if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					model.doDelete(id);
@@ -99,6 +121,7 @@ public class ProductControl extends HttpServlet {
 			}
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/details.jsp");
 			dispatcher.forward(request, response);
+			return;
 		}
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/ProductView.jsp");
 		dispatcher.forward(request, response);

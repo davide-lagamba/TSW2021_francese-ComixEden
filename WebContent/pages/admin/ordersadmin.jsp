@@ -26,7 +26,7 @@ if (user == null || !user.isAdmin()) {
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="icon" href="./images/ComixEden.png">
+<link rel="icon" href="<%=getServletContext().getContextPath()%>/images/ComixEden.png">
 <link rel="stylesheet" type="text/css"
 	href="<%=getServletContext().getContextPath() %>/style/productviewstyle.css">
 <title>Lista Ordini</title>

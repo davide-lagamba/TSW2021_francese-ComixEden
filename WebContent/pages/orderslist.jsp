@@ -57,8 +57,8 @@ Carrello cart = (Carrello) request.getAttribute("cart");
 			%>
 			<tr>
 				<td data-label="ID"><%=bean.getIdOrdine()%></td>
-				<td data-label="Indirizzo spedizione"><%=bean.getIdSpedizione()%></td>
-				<td data-label="Prezzo totale"><%=bean.getPrezzoTotaleString()%></td>
+				<td data-label="Indirizzo spedizione"><%=(new IndirizzoDS().doRetrieveByKey(bean.getIdSpedizione())).getString()%></td>
+				<td data-label="Prezzo totale"><%=bean.getPrezzoTotaleString()%>&euro;</td>
 				<td data-label="Quantità"><%=bean.getQuantita()%></td>
 				<td data-label="Data"><%=bean.getData()%></td>
 				<td data-label="Note" class="Note"><%=bean.getNote()%></td>

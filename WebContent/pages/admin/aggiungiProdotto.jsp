@@ -34,7 +34,7 @@
 
 	
 	<div class="container">
-	<form action="gestioneCatalogo" method="post" enctype="multipart/form-data">
+	<form action="gestioneCatalogo" name="aggiungi" method="post" enctype="multipart/form-data" onSubmit="return formValidation();">
 	<fieldset>
 	<label>Informazioni principali</label>
 	<br><br><br>
@@ -49,12 +49,13 @@
 	<label>Informazioni di stato</label><br><br><br>
 	<label>Stato: <input type="text" name="stato" required></label><br><br>
 	<label>Colore: <input type="text" name="colore_stampa" required></label><br><br>
-	<label>Prezzo base: <input type="number" name="prezzo_base" required></label><br><br>
-	<label>Peso: <input type="number" name="peso" required></label><br><br>
-	<label>Disponibilità: <input type="number" name="disponibilita" required></label><br><br>
-	<label>Pagine: <input type="number" name="pagine" required></label><br><br>
-	<label>Sconto: <input type="number" name="sconto" required></label><br><br>
-	<label>IVA: <input type="number" name="iva" required></label><br><br>
+	<label>Prezzo base: <input type="number" name="prezzo_base" required></label><br>
+	<span class="prezzoError"></span><br>
+	<label>Peso: <input type="number" name="peso" required></label><br><span class="pesoError"></span><br>
+	<label>Disponibilità: <input type="number" name="disponibilita" required></label><br><span class="disponibilitaError"></span><br>
+	<label>Pagine: <input type="number" name="pagine" required></label><br><span class="pagineError"></span><br>
+	<label>Sconto: <input type="number" name="sconto" required></label><br><span class="scontoError"></span><br>
+	<label>IVA: <input type="number" name="iva" required></label><br><span class="ivaError"></span><br>
 	</fieldset><br><br>
 	Aggiungi immagine
 	<input type="file" name="img" size="500" accept=".jpg"/><br><br><br>
@@ -74,7 +75,7 @@
 <body>
 
 	<div class="container">
-	<form action="gestioneCatalogo" method="post" enctype="multipart/form-data">
+	<form action="gestioneCatalogo" method="post" name="aggiungi" enctype="multipart/form-data" onSubmit="return formValidation();">
 	<fieldset>
 	<label>Informazioni principali</label>
 	<br><br><br>
@@ -89,12 +90,12 @@
 	<label>Informazioni di stato</label><br><br><br>
 	<label>Stato: <input type="text" name="stato" required value="<%=product.getStato() %>"></label><br><br>
 	<label>Colore: <input type="text" name="colore_stampa" required value="<%=product.getColoreStampa() %>"></label><br><br>
-	<label>Prezzo base: <input type="number" name="prezzo_base" required value="<%=product.getPrezzoBase() %>"></label><br><br>
-	<label>Peso: <input type="number" name="peso" required value="<%=product.getPeso()%>"></label><br><br>
-	<label>Disponibilità: <input type="number" name="disponibilita" required value="<%=product.getDisponibilita() %>"></label><br><br>
-	<label>Pagine: <input type="number" name="pagine" required value="<%=product.getPagine() %>"></label><br><br>
-	<label>Sconto: <input type="number" name="sconto" required value="<%=product.getSconto()%>"></label><br><br>
-	<label>IVA: <input type="number" name="iva" required value="<%=product.getIva() %>"></label><br><br>
+	<label>Prezzo base: <input type="number" name="prezzo_base" required value="<%=product.getPrezzoBase() %>"></label><br><span class="prezzoError"></span><br>
+	<label>Peso: <input type="number" name="peso" required value="<%=product.getPeso()%>"></label><br><span class="pesoError"></span><br>
+	<label>Disponibilità: <input type="number" name="disponibilita" required value="<%=product.getDisponibilita() %>"></label><br><span class="disponibilitaError"></span><br>
+	<label>Pagine: <input type="number" name="pagine" required value="<%=product.getPagine() %>"></label><br><span class="pagineError"></span><br>
+	<label>Sconto: <input type="number" name="sconto" required value="<%=product.getSconto()%>"></label><br><span class="scontoError"></span><br>
+	<label>IVA: <input type="number" name="iva" required value="<%=product.getIva() %>"></label><br><span class="ivaError"></span><br>
 	</fieldset><br><br>
 	Aggiungi immagine
 	<input type="file" name="img" size="500" accept=".jpg"/><br><br><br>
@@ -109,4 +110,7 @@
 	<%} %>
 	<%@ include file="/fragments/footer.html"%>
 </body>
+
+<script src="<%=getServletContext().getContextPath() %>/script/jquery.js"></script>
+<script src="<%=getServletContext().getContextPath() %>/script/aggiungi-validation.js"></script>
 </html>

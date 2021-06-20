@@ -43,7 +43,6 @@ public class Utente implements Serializable {
 		long miliseconds = System.currentTimeMillis();
         Date date = new Date(miliseconds);
 		this.data_registrazione=date;
-		System.out.println(password);
 	}
 	
 	public Utente(int id_utente, String nome, String cognome, String email, String password) {

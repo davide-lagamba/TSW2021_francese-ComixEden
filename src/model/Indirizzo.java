@@ -19,6 +19,9 @@ public class Indirizzo implements Serializable{
 		via="";
 	}
 	
+	public String getString() {
+		return ""+stato+", "+citta+", "+cap+", "+via;
+	}
 	public int getId() {
 		return id;
 	}

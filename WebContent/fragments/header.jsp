@@ -3,9 +3,7 @@
 <%@ page import="model.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.lang.*"%>
-<head>
-<link rel="stylesheet" href="./style/headerstyle.css">
-</head>
+
 <div class="containernav" id="myNav">
 	<a href="<%=getServletContext().getContextPath()%>/pages/ProductView.jsp"> 
 	<img src="<%=getServletContext().getContextPath()%>/images/ComixEden.png" alt="logo" id="logo"></a>
@@ -13,7 +11,7 @@
 			
 		
 	<%if(request.getSession().getAttribute("utente") == null){ %>
-		<a href="login" class="catalog" >LogIn</a> <%
+		<a href="<%=getServletContext().getContextPath()%>/login" class="catalog" >LogIn</a> <%
 	}else{ %>
 		<%if( ((Utente)request.getSession().getAttribute("utente")).isAdmin() ){ %>
 			<a href="<%=getServletContext().getContextPath()%>/admin/view" class="catalog">Area Admin</a> <%
