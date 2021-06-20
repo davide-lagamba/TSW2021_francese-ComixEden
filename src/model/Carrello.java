@@ -153,7 +153,7 @@ public class Carrello {
 		  order = (DettaglioOrdine)prodotti.get(i);
 			tot=tot+order.getPrezzoTot()*order.getNumItems();
 				}
-	  return String.format("%.2f", tot)+"€";
+	  return String.format("%.2f", tot);
 	  }
   
   public Double getPrezzoTot() {

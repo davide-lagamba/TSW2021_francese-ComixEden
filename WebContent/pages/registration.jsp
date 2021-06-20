@@ -17,7 +17,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="icon" href="./images/ComixEden.png">
+<link rel="icon" href="<%=getServletContext().getContextPath() %>/images/ComixEden.png">
 <link rel="stylesheet" type="text/css"
 	href="<%=getServletContext().getContextPath() %>/style/productviewstyle.css">
 <title>Registrazione</title>
@@ -25,7 +25,7 @@
 
 <body onload="document.registration.nome.focus()">
 
-	<%@ include file="../fragments/header.jsp"%>
+	<%@ include file="/fragments/header.jsp"%>
 	<div class="container">
 
 		<form id="registration" action="Reg" method="post" name="registration" onSubmit="return formValidation();">
@@ -92,7 +92,7 @@
 
 	</form>
 	</div>
-	<%@ include file="../fragments/footer.html"%>
+	<%@ include file="/fragments/footer.html"%>
 	<%
 		request.removeAttribute("registrazione");
 		request.removeAttribute("error");

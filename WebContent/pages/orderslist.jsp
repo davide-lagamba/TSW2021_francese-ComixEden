@@ -7,12 +7,12 @@
 Utente user = (Utente) request.getSession().getAttribute("utente");
 
 if (user == null) {
-	response.sendRedirect("../login");
+	response.sendRedirect("/login");
 }
 
 Collection<?> ordini = (Collection<?>) request.getAttribute("orders");
 if (ordini == null) {
-	response.sendRedirect("../orders");
+	response.sendRedirect("/orders");
 	return;
 }
 
@@ -25,15 +25,15 @@ Carrello cart = (Carrello) request.getAttribute("cart");
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="icon" href="./images/ComixEden.png">
+<link rel="icon" href="<%=getServletContext().getContextPath() %>/images/ComixEden.png">
 <link rel="stylesheet" type="text/css"
-	href="./style/productviewstyle.css">
+	href="<%=getServletContext().getContextPath() %>/style/productviewstyle.css">
 <title>Lista Ordini</title>
 </head>
 
 <body>
 
-	<%@ include file="../fragments/header.jsp"%>
+	<%@ include file="/fragments/header.jsp"%>
 	<div class="container">
 
 		<table border="1">
@@ -83,5 +83,5 @@ Carrello cart = (Carrello) request.getAttribute("cart");
 
 
 </body>
-<%@ include file="../fragments/footer.html"%>
+<%@ include file="/fragments/footer.html"%>
 </html>

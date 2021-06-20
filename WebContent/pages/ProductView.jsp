@@ -25,15 +25,15 @@ Utente user = (Utente) request.getSession().getAttribute("utente");
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="icon" href="./images/ComixEden.png">
+<link rel="icon" href="<%=getServletContext().getContextPath() %>/images/ComixEden.png">
 <link rel="stylesheet" type="text/css"
-	href="./style/productviewstyle.css">
+	href="<%=getServletContext().getContextPath() %>/style/productviewstyle.css">
 <title>Catalogo</title>
 </head>
 
 <body>
 
-	<%@ include file="../fragments/header.jsp"%>
+	<%@ include file="/fragments/header.jsp"%>
 	<h2 class="is-size-2">Prodotti</h2>
 	<div class="field searchbar p-6">
 	  <div class="control has-icons-left has-icons-right">
@@ -63,7 +63,7 @@ Utente user = (Utente) request.getSession().getAttribute("utente");
 			<p><%=bean.getNome()%></p>
 			<p><%=bean.getDescrizione()%></p>
 			<div>
-				<a href="product?id=<%=bean.getId()%>"><img src="images/<%=(new ImmagineDS()).doRetrieveByKey(bean.getId()).getNome()%>" alt="<%=bean.getNome()%>"></a>
+				<a href="product?id=<%=bean.getId()%>"><img src="<%=getServletContext().getContextPath() %>/images/<%=(new ImmagineDS()).doRetrieveByKey(bean.getId()).getNome()%>" alt="<%=bean.getNome()%>"></a>
 			</div>
 			<p>
 				Autore:
@@ -90,7 +90,7 @@ Utente user = (Utente) request.getSession().getAttribute("utente");
 			</form>
 
 			<p class="price">
-				<%=bean.getPrezzoTotString()%>
+				<%=bean.getPrezzoTotString()%>&euro;
 			</p>
 		</div>
 		<%
@@ -144,5 +144,5 @@ $(document).ready(function(e) {
 
 
 </script>
-<%@ include file="../fragments/footer.html"%>
+<%@ include file="/fragments/footer.html"%>
 </html>

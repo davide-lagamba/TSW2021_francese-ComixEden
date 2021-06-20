@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset=UTF-8>
-<link rel="icon" href="./images/ComixEden.png">
+<link rel="icon" href="<%=getServletContext().getContextPath() %>/images/ComixEden.png">
 <link rel="stylesheet" type="text/css"
-	href="./style/productviewstyle.css">
+	href="<%=getServletContext().getContextPath() %>/style/productviewstyle.css">
 <title>Riepilogo</title>
 </head>
 <body>
-	<%@ include file="../fragments/header.jsp"%>
+	<%@ include file="/fragments/header.jsp"%>
 
 	<%
 	    MetodoPagamento mp = (MetodoPagamento) request.getAttribute("pagamento");
@@ -47,6 +47,6 @@
 		</table>
 		<h2>...per maggiori dettagli, consulta la tua area utente!</h2>
 	</div>
-	<%@ include file="../fragments/footer.html"%>
+	<%@ include file="/fragments/footer.html"%>
 </body>
 </html>

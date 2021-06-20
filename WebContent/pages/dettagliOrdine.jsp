@@ -7,7 +7,7 @@
 	Utente user = (Utente) request.getSession().getAttribute("utente");
     String research = (String) request.getParameter("research");
 if (user == null) {
-	response.sendRedirect("../login");
+	response.sendRedirect("/login");
 }
 
 	Collection<?> dettagli = (Collection<?>) request.getAttribute("dettagli");

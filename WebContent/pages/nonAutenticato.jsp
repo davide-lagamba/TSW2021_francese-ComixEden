@@ -17,13 +17,13 @@
 </head>
 
 <body>
-<%@ include file="../fragments/header.jsp" %>
+<%@ include file="/fragments/header.jsp" %>
 	<div class="container">
 		<h2>Errore</h2>
 		<p>Visita il nostro sito tramite i link in alto!</p>
 	</div>
 </body>
 
-<%@ include file="../fragments/footer.html"%>
+<%@ include file="/fragments/footer.html"%>
 
 </html>

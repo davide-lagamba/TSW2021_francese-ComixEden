@@ -13,7 +13,7 @@ if (user == null || !user.isAdmin()) {
 }
 	Collection<?> ordini = (Collection<?>) request.getAttribute("orders");
 	if (ordini == null) {
-		response.sendRedirect("../ordersad");
+		response.sendRedirect("/ordersad");
 		return;
 	}
 

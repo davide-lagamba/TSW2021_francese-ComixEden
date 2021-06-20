@@ -160,7 +160,7 @@ public class Prodotto implements Serializable{
 	 
 	 public String getPrezzoTotString() {
 		 
-	    return String.format("%.2f", getPrezzoTot()) + "€";
+	    return String.format("%.2f", getPrezzoTot());
 	  }
 	 
 	@Override

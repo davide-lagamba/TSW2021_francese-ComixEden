@@ -14,17 +14,17 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="icon" href="./images/ComixEden.png">
+<link rel="icon" href="<%=getServletContext().getContextPath() %>/images/ComixEden.png">
 
 <link rel="stylesheet" type="text/css"
-	href="./style/productviewstyle.css">
+	href="<%=getServletContext().getContextPath() %>/style/productviewstyle.css">
 
 <title>Dettagli dell'articolo</title>
 </head>
 
 <body>
 
-	<%@ include file="../fragments/header.jsp"%>
+	<%@ include file="/fragments/header.jsp"%>
 
 	<div class="container">
 
@@ -47,7 +47,7 @@
 						while (it.hasNext()) {
 							Immagine bean = (Immagine) it.next();
 							if (bean.isCopertina()) {
-			%><img class="big-img dettagliimg" src="images/<%=bean.getNome()%>">
+			%><img class="big-img dettagliimg" src="<%=getServletContext().getContextPath() %>/images/<%=bean.getNome()%>">
 
 			<%
 				}
@@ -61,7 +61,7 @@
 							Immagine bean = (Immagine) it.next();
 							if (!bean.isCopertina()) {
 			%>
-			<img  class="big-img dettagliimg" src="images/<%=bean.getNome()%>">
+			<img  class="big-img dettagliimg" src="<%=getServletContext().getContextPath() %>/images/<%=bean.getNome()%>">
 
 			<%
 				}
@@ -186,7 +186,7 @@
 			}
 		%>
 	</div>
-	<%@ include file="../fragments/footer.html"%>
+	<%@ include file="/fragments/footer.html"%>
 </body>
 <script
 	src="<%=getServletContext().getContextPath()%>/script/jquery.js"></script>

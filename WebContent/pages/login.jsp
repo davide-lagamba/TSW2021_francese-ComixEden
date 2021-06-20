@@ -12,14 +12,14 @@ Carrello cart = (Carrello) request.getAttribute("cart");
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="icon" href="./images/ComixEden.png">
+<link rel="icon" href="<%=getServletContext().getContextPath() %>/images/ComixEden.png">
 <link rel="stylesheet" type="text/css"
-	href="./style/productviewstyle.css">
+	href="<%=getServletContext().getContextPath() %>/style/productviewstyle.css">
 <title>Login</title>
 </head>
 
 <body>
-<%@ include file="../fragments/header.jsp" %>
+<%@ include file="/fragments/header.jsp" %>
 	<div class="container">
 		<h2>Login</h2>
 		<form action="login" method="post">
@@ -37,6 +37,6 @@ Carrello cart = (Carrello) request.getAttribute("cart");
 	</div>
 </body>
 
-<%@ include file="../fragments/footer.html"%>
+<%@ include file="/fragments/footer.html"%>
 
 </html>
