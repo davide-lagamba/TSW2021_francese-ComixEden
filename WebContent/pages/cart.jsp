@@ -47,7 +47,7 @@
 				<td data-label="ID"><%=det.getItemId()%></td>
 				<td data-label="Nome"><%=det.getNome()%></td>
 				<td data-label="Descrizione"><%=det.getDescrizione()%></td>
-				<td data-label="Prezzo totale"><%=det.getPrezzoTotString()%></td>
+				<td data-label="Prezzo totale"><%=det.getPrezzoTotString()%>&euro;</td>
 				<td data-label="Quantità">
 					<form action="cartView">
 						<input id="quantita" type="number" name="quantita"

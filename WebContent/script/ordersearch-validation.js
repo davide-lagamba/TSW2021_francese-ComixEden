@@ -49,6 +49,7 @@ else
 	datai.classList.add("errorForm");
 	dataf.classList.add("errorForm");
 	 bool2= false;
+	 datai.focus();
 	 return true;
 }
 } 
@@ -59,6 +60,7 @@ if(uemail.value.match(mailformat))
 {
 	 document.getElementById("emailError").textContent="";
 	uemail.classList.remove("errorForm");
+	
 	return true;
 }
 else
@@ -66,6 +68,7 @@ else
 	 document.getElementById("emailError").textContent="Inserisci una email valida";
 	 uemail.classList.add("errorForm");
 	 boolean= false;
+	 uemail.focus();
 	 return true;
 }
 } 

@@ -42,6 +42,7 @@ boolean= false;
 
 document.getElementsByClassName("prezzoError")[0].textContent="Prezzo > 0";
 prezzo.classList.add("errorForm");
+prezzo.focus();
 return true;
 }}
 
@@ -56,6 +57,7 @@ boolean= false;
 
 document.getElementsByClassName("pesoError")[0].textContent="Peso > 0";
 peso.classList.add("errorForm");
+peso.focus();
 return true;
 }}
 
@@ -70,6 +72,7 @@ boolean= false;
 
 document.getElementsByClassName("disponibilitaError")[0].textContent="Disponibilità > 0";
 disp.classList.add("errorForm");
+disp.focus();
 return true;
 }}
 
@@ -84,6 +87,7 @@ boolean= false;
 
 document.getElementsByClassName("pagineError")[0].textContent="Pagine > 0";
 pagine.classList.add("errorForm");
+pagine.focus();
 return true;
 }}
 function sconto_validation(sconto)
@@ -97,6 +101,7 @@ boolean= false;
 
 document.getElementsByClassName("scontoError")[0].textContent="Sconto >= 0";
 sconto.classList.add("errorForm");
+sconto.focus();
 return true;
 }}
 function iva_validation(iva)
@@ -110,5 +115,6 @@ boolean= false;
 
 document.getElementsByClassName("ivaError")[0].textContent="Iva > 0";
 iva.classList.add("errorForm");
+iva.focus();
 return true;
 }}

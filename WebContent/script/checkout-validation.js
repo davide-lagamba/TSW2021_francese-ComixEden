@@ -41,6 +41,7 @@ boolean= false;
 
 document.getElementsByClassName("cap_spedizioneError")[0].textContent="Cap non corretto";
 cap.classList.add("errorForm");
+cap.focus();
 return true;
 }}
 
@@ -56,6 +57,7 @@ boolean= false;
 
 document.getElementsByClassName("cap_fatturazioneError")[0].textContent="Cap non corretto";
 cap.classList.add("errorForm");
+cap.focus();
 return true;
 }
 }
@@ -72,6 +74,7 @@ function num_validation(num) {
 
 	document.getElementsByClassName("numero_cartaError")[0].textContent="Numero carta non corretto";
 	num.classList.add("errorForm");
+	num.focus();
 	return true;}
 }
 
@@ -87,6 +90,7 @@ function scad_validation(scad) {
 
 	document.getElementsByClassName("scadenzaError")[0].textContent="Carta scaduta";
 	scad.classList.add("errorForm");
+	scad.focus();
 	return true;}
 }
 

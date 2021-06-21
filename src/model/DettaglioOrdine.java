@@ -106,7 +106,7 @@ private Prodotto item;
   
   public String getPrezzoTotString() {
 	  Double tot=(getPrezzoTot()*getNumItems());
-	  return String.format("%.2f", tot) + "€";
+	  return String.format("%.2f", tot);
   }
   
   public int getNumItems() {
@@ -159,7 +159,7 @@ public double getPrezzoSingolo() {
 	return prezzoSingolo;
 }
 public String getPrezzoTotaleString() {
-	  return String.format("%.2f", getPrezzoTotDettaglio()) + "€";
+	  return String.format("%.2f", getPrezzoTotDettaglio());
 }
 
 public void setPrezzoSingolo(double prezzoSingolo) {
